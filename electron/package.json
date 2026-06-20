@@ -1,0 +1,72 @@
+{
+  "name": "windows-doctor-ai",
+  "version": "2.0.0",
+  "description": "Windows Doctor AI - Intelligent Windows Diagnostic System",
+  "main": "main.js",
+  "author": {
+    "name": "Rudolf",
+    "email": ""
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder build --win",
+    "build:installer": "electron-builder build --win nsis",
+    "build:portable": "electron-builder build --win portable"
+  },
+  "build": {
+    "appId": "com.rudolf.windowsdoctorai",
+    "productName": "Windows Doctor AI",
+    "copyright": "Copyright © 2026 Rudolf",
+    "asar": true,
+    "asarUnpack": [],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "icon.ico",
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Windows Doctor AI",
+      "installerIcon": "icon.ico",
+      "uninstallerIcon": "icon.ico",
+      "installerHeaderIcon": "icon.ico",
+      "deleteAppDataOnUninstall": false,
+      "displayLanguageSelector": false
+    },
+    "portable": {
+      "artifactName": "WindowsDoctorAI-v2.0.0-portable.exe"
+    },
+    "extraResources": [
+      {
+        "from": "../backend/dist/backend.exe",
+        "to": "backend/backend.exe"
+      },
+      {
+        "from": "../frontend/dist",
+        "to": "frontend",
+        "filter": ["**/*"]
+      }
+    ],
+    "directories": {
+      "output": "../build-output"
+    },
+    "artifactName": "WindowsDoctorAI-Setup-v2.0.0.exe"
+  },
+  "devDependencies": {
+    "electron": "^42.4.1",
+    "electron-builder": "^26.15.3"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "Remote Procedure Call (RPC) Locator": {
+    "expected_status": "Stopped"
+  },
+
+  "Virtual Disk": {
+    "expected_status": "Running"
+  },
+
+  "Windows Search": {
+    "expected_status": "Running"
+  },
+
+  "Microsoft Office Click-to-Run Service": {
+    "expected_status": "Running"
+  }
+}

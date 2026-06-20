@@ -1,0 +1,131 @@
+{
+  "cpu_high_usage": {
+    "title": "High CPU Usage",
+    "severity": "medium",
+    "category": "CPU",
+    "description": "Penggunaan CPU tinggi secara terus-menerus dapat menyebabkan sistem lambat dan overheating.",
+    "recommended_actions": [
+      "Periksa proses dengan CPU tertinggi di tab Processes",
+      "Tutup aplikasi yang tidak diperlukan",
+      "Periksa apakah ada malware yang menggunakan CPU secara abnormal",
+      "Bersihkan debu pada heatsink/fan jika usia laptop/PC sudah lama"
+    ]
+  },
+  "cpu_high_temperature": {
+    "title": "CPU Temperature Too High",
+    "severity": "high",
+    "category": "CPU",
+    "description": "Suhu CPU di atas ambang aman dapat menyebabkan throttling, instability, bahkan kerusakan permanen jangka panjang.",
+    "recommended_actions": [
+      "Bersihkan debu pada heatsink dan fan CPU",
+      "Periksa pasta thermal (thermal paste), ganti jika sudah lebih dari 2-3 tahun",
+      "Pastikan ventilasi casing/laptop tidak tersumbat",
+      "Pertimbangkan upgrade cooling system jika masalah berlanjut"
+    ]
+  },
+  "ram_high_usage": {
+    "title": "High RAM Usage",
+    "severity": "medium",
+    "category": "Memory",
+    "description": "Penggunaan RAM yang konsisten tinggi membuat sistem mengandalkan swap/page file yang jauh lebih lambat.",
+    "recommended_actions": [
+      "Tutup aplikasi/tab browser yang tidak terpakai",
+      "Periksa proses dengan konsumsi RAM tertinggi",
+      "Pertimbangkan menambah kapasitas RAM (upgrade)",
+      "Nonaktifkan startup program yang tidak perlu"
+    ]
+  },
+  "disk_unhealthy": {
+    "title": "Disk Health Degraded",
+    "severity": "high",
+    "category": "Storage",
+    "description": "Status SMART/reliability disk menunjukkan tanda kerusakan. Risiko kehilangan data jika tidak ditangani.",
+    "recommended_actions": [
+      "Segera backup data penting ke storage lain",
+      "Jalankan CHKDSK untuk memeriksa bad sector",
+      "Pertimbangkan mengganti disk jika status tetap 'Unhealthy' setelah scan",
+      "Hindari penggunaan berat hingga disk diganti"
+    ]
+  },
+  "disk_high_wear": {
+    "title": "SSD Wear Level High",
+    "severity": "medium",
+    "category": "Storage",
+    "description": "SSD menunjukkan tingkat keausan (wear level) tinggi, mendekati akhir masa pakainya.",
+    "recommended_actions": [
+      "Backup data secara rutin",
+      "Rencanakan penggantian SSD dalam waktu dekat",
+      "Kurangi proses read/write berat yang tidak perlu (misal: excessive logging)"
+    ]
+  },
+  "disk_high_temperature": {
+    "title": "Disk Temperature Too High",
+    "severity": "medium",
+    "category": "Storage",
+    "description": "Suhu disk yang tinggi dapat mempercepat degradasi komponen, terutama pada SSD NVMe.",
+    "recommended_actions": [
+      "Pastikan ventilasi/airflow di sekitar slot disk cukup",
+      "Pertimbangkan menambahkan heatsink untuk SSD NVMe",
+      "Periksa apakah ada proses I/O berat yang berjalan terus-menerus"
+    ]
+  },
+  "disk_low_space": {
+    "title": "Low Disk Space",
+    "severity": "medium",
+    "category": "Storage",
+    "description": "Ruang disk yang hampir penuh dapat memperlambat sistem dan mengganggu update Windows.",
+    "recommended_actions": [
+      "Jalankan Disk Cleanup",
+      "Hapus file temporary dan cache yang tidak terpakai",
+      "Pindahkan file besar ke storage eksternal/cloud",
+      "Uninstall aplikasi yang tidak terpakai"
+    ]
+  },
+  "gpu_high_temperature": {
+    "title": "GPU Temperature Too High",
+    "severity": "high",
+    "category": "GPU",
+    "description": "Suhu GPU tinggi dapat menyebabkan throttling performa dan mempercepat keausan komponen.",
+    "recommended_actions": [
+      "Bersihkan debu pada fan dan heatsink GPU",
+      "Periksa airflow casing, tambahkan fan jika perlu",
+      "Update driver GPU ke versi terbaru",
+      "Pertimbangkan undervolt/repaste jika masalah berlanjut pada GPU lama"
+    ]
+  },
+  "gpu_high_usage": {
+    "title": "Sustained High GPU Usage",
+    "severity": "low",
+    "category": "GPU",
+    "description": "Penggunaan GPU tinggi terus-menerus saat idle bisa mengindikasikan proses background yang tidak wajar.",
+    "recommended_actions": [
+      "Periksa aplikasi yang menggunakan GPU di Task Manager",
+      "Update driver GPU",
+      "Tutup aplikasi rendering/mining yang tidak diinginkan"
+    ]
+  },
+  "driver_problem": {
+    "title": "Driver/Device Problem Detected",
+    "severity": "medium",
+    "category": "Driver",
+    "description": "Satu atau lebih perangkat keras melaporkan masalah driver (kode error PnP).",
+    "recommended_actions": [
+      "Update driver melalui Windows Update atau situs resmi vendor",
+      "Uninstall lalu reinstall driver perangkat yang bermasalah",
+      "Periksa Device Manager untuk detail error lebih lanjut",
+      "Jika perangkat sudah tua, pertimbangkan penggantian hardware"
+    ]
+  },
+  "hardware_failure_suspected": {
+    "title": "Possible Hardware Failure",
+    "severity": "high",
+    "category": "Hardware",
+    "description": "Kode error PnP mengindikasikan kemungkinan kegagalan hardware fisik (kode 43).",
+    "recommended_actions": [
+      "Coba lepas dan pasang kembali perangkat (jika removable)",
+      "Uji perangkat di slot/port lain",
+      "Hubungi service center jika perangkat masih dalam garansi",
+      "Pertimbangkan penggantian perangkat jika masalah berulang"
+    ]
+  }
+}

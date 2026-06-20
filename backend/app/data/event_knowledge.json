@@ -1,0 +1,241 @@
+{
+  "7000": {
+    "title": "Service Failed to Start",
+    "severity": "high",
+    "score_penalty": 8,
+    "ignore": false,
+    "description": "Service Windows gagal start saat boot. Bisa disebabkan dependency hilang, file corrupt, atau permission salah."
+  },
+
+  "7001": {
+    "title": "Service Dependency Failed",
+    "severity": "high",
+    "score_penalty": 7,
+    "ignore": false,
+    "description": "Service tidak bisa start karena service yang dibutuhkannya juga gagal. Periksa service induk terlebih dahulu."
+  },
+
+  "7002": {
+    "title": "Service Dependency Failure (Circular)",
+    "severity": "medium",
+    "score_penalty": 5,
+    "ignore": false,
+    "description": "Dependency antar service membentuk siklus yang menyebabkan keduanya gagal start."
+  },
+
+  "7003": {
+    "title": "Service Dependency Not Found",
+    "severity": "high",
+    "score_penalty": 8,
+    "ignore": false,
+    "description": "Service bergantung pada service lain yang tidak ada. Kemungkinan ada file system atau registry yang corrupt."
+  },
+
+  "7009": {
+    "title": "Service Start Timeout",
+    "severity": "medium",
+    "score_penalty": 5,
+    "ignore": false,
+    "description": "Service tidak merespons dalam waktu yang ditentukan (default 30 detik). Sistem terlalu lambat atau service hang."
+  },
+
+  "7011": {
+    "title": "Service Transaction Timeout",
+    "severity": "medium",
+    "score_penalty": 4,
+    "ignore": false,
+    "description": "Service tidak merespons permintaan kontrol (stop/pause/continue). Bisa menyebabkan hang pada shutdown."
+  },
+
+  "7016": {
+    "title": "Service Reported Invalid State",
+    "severity": "low",
+    "score_penalty": 2,
+    "ignore": false,
+    "description": "Service melaporkan status yang tidak valid ke Service Control Manager."
+  },
+
+  "7022": {
+    "title": "Service Hung on Start",
+    "severity": "medium",
+    "score_penalty": 5,
+    "ignore": false,
+    "description": "Service berjalan tapi tidak menyelesaikan proses start. Service dalam kondisi stuck."
+  },
+
+  "7023": {
+    "title": "Service Terminated With Error",
+    "severity": "high",
+    "score_penalty": 7,
+    "ignore": false,
+    "description": "Service berhenti dengan error code tertentu. Periksa error code untuk diagnosis lebih detail."
+  },
+
+  "7024": {
+    "title": "Service Terminated (Service-Specific Error)",
+    "severity": "high",
+    "score_penalty": 7,
+    "ignore": false,
+    "description": "Service berhenti dengan error code internal yang spesifik untuk service tersebut."
+  },
+
+  "7026": {
+    "title": "Boot-Start Driver Failed to Load",
+    "severity": "high",
+    "score_penalty": 9,
+    "ignore": false,
+    "description": "Driver yang dibutuhkan saat boot gagal load. Bisa menyebabkan BSOD atau hardware tidak terdeteksi."
+  },
+
+  "7031": {
+    "title": "Service Terminated Unexpectedly",
+    "severity": "medium",
+    "score_penalty": 5,
+    "ignore": false,
+    "description": "Service Windows berhenti secara tidak normal (crash). Windows akan mencoba restart otomatis."
+  },
+
+  "7032": {
+    "title": "Service Recovery Action Failed",
+    "severity": "medium",
+    "score_penalty": 4,
+    "ignore": false,
+    "description": "Upaya restart otomatis service yang crash juga gagal. Service benar-benar tidak bisa pulih sendiri."
+  },
+
+  "7034": {
+    "title": "Service Terminated Unexpectedly",
+    "severity": "medium",
+    "score_penalty": 3,
+    "ignore": false,
+    "description": "Service Windows berhenti tidak normal. Mirip 7031 tapi tanpa informasi corrective action."
+  },
+
+  "7038": {
+    "title": "Service Logon Failure",
+    "severity": "high",
+    "score_penalty": 7,
+    "ignore": false,
+    "description": "Service tidak bisa login dengan akun yang dikonfigurasi. Password berubah atau akun dikunci."
+  },
+
+  "7040": {
+    "title": "Service Start Type Changed",
+    "severity": "low",
+    "score_penalty": 1,
+    "ignore": false,
+    "description": "Tipe start service diubah (misal dari Automatic menjadi Disabled). Bisa dilakukan oleh update atau software."
+  },
+
+  "7043": {
+    "title": "Service Did Not Shut Down Properly",
+    "severity": "low",
+    "score_penalty": 2,
+    "ignore": false,
+    "description": "Service tidak merespons perintah shutdown dengan benar. Menyebabkan shutdown Windows lebih lambat."
+  },
+
+  "41": {
+    "title": "Unexpected System Restart (Kernel Power)",
+    "severity": "high",
+    "score_penalty": 15,
+    "ignore": false,
+    "description": "Sistem restart mendadak tanpa shutdown normal — biasanya karena BSOD, power failure, atau kernel panic."
+  },
+
+  "1001": {
+    "title": "Windows Error Reporting (BSOD / Crash)",
+    "severity": "high",
+    "score_penalty": 10,
+    "ignore": false,
+    "description": "Windows Error Reporting mencatat crash. Termasuk BSOD dump dan application crash yang dikirim ke Microsoft."
+  },
+
+  "1000": {
+    "title": "Application Error / Crash",
+    "severity": "medium",
+    "score_penalty": 4,
+    "ignore": false,
+    "description": "Aplikasi mengalami crash dengan unhandled exception. Periksa nama aplikasi untuk diagnosis lebih lanjut."
+  },
+
+  "6008": {
+    "title": "Unexpected System Shutdown",
+    "severity": "high",
+    "score_penalty": 12,
+    "ignore": false,
+    "description": "Shutdown sebelumnya tidak dilakukan dengan benar. Bisa karena mati lampu, freeze, atau BSOD."
+  },
+
+  "10001": {
+    "title": "DCOM Activation Error",
+    "severity": "low",
+    "score_penalty": 1,
+    "ignore": false,
+    "description": "DCOM gagal mengaktifkan komponen tertentu. Biasanya tidak menyebabkan kerusakan sistem serius."
+  },
+
+  "10010": {
+    "title": "DCOM Server Unavailable",
+    "severity": "low",
+    "score_penalty": 2,
+    "ignore": false,
+    "description": "DCOM server tidak bisa diakses dalam timeout yang ditentukan. Sering terjadi pada startup."
+  },
+
+  "129": {
+    "title": "Disk Reset / Storage Controller Timeout",
+    "severity": "high",
+    "score_penalty": 10,
+    "ignore": false,
+    "description": "Storage controller melakukan reset. Tanda disk atau kabel SATA/NVMe bermasalah."
+  },
+
+  "7": {
+    "title": "Disk Bad Block / I/O Error",
+    "severity": "high",
+    "score_penalty": 12,
+    "ignore": false,
+    "description": "Ditemukan bad sector pada disk. Segera backup data dan periksa kesehatan disk dengan CHKDSK."
+  },
+
+  "11": {
+    "title": "Disk Controller Error",
+    "severity": "high",
+    "score_penalty": 10,
+    "ignore": false,
+    "description": "Error pada disk controller. Bisa berupa kabel longgar, disk failing, atau driver masalah."
+  },
+
+  "51": {
+    "title": "Disk Error During Paging",
+    "severity": "medium",
+    "score_penalty": 6,
+    "ignore": false,
+    "description": "Error saat Windows mencoba baca/tulis ke page file di disk. Bisa menyebabkan crash atau data korup."
+  },
+
+  "55": {
+    "title": "NTFS File System Corruption",
+    "severity": "high",
+    "score_penalty": 12,
+    "ignore": false,
+    "description": "Struktur file system NTFS terdeteksi corrupt. Jalankan CHKDSK segera untuk mencegah data loss."
+  },
+
+  "157": {
+    "title": "Disk Surprise Removal",
+    "severity": "medium",
+    "score_penalty": 5,
+    "ignore": false,
+    "description": "Disk tiba-tiba tidak terdeteksi tanpa proses eject yang benar. Bisa menyebabkan file corrupt."
+  },
+
+  "219": {
+    "title": "Driver Failed to Load",
+    "severity": "medium",
+    "score_penalty": 5,
+    "ignore": false,
+    "description": "Driver perangkat gagal load. Hardware yang bersangkutan mungkin tidak berfungsi."
+  }
+}

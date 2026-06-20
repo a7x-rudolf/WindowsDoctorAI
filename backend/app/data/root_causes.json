@@ -1,0 +1,544 @@
+{
+  "Windows Search": {
+    "severity": "medium",
+    "category": "Search Service",
+    "possible_causes": [
+      "Corrupted search index database",
+      "Search service dependency failure",
+      "Disk I/O issue affecting index files",
+      "Windows.edb database corruption"
+    ],
+    "recommended_actions": [
+      "Rebuild Search Index",
+      "Restart Windows Search Service",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Virtual Disk": {
+    "severity": "high",
+    "category": "Storage",
+    "possible_causes": [
+      "Virtual Disk dependency failure",
+      "Storage subsystem issue",
+      "Disk corruption or bad sectors",
+      "VDS provider failure"
+    ],
+    "recommended_actions": [
+      "Run CHKDSK",
+      "Restart Virtual Disk Service",
+      "Check Disk Management"
+    ]
+  },
+
+  "Remote Procedure Call (RPC) Locator": {
+    "severity": "high",
+    "category": "Core Service",
+    "possible_causes": [
+      "RPC dependency issue",
+      "Service configuration corruption",
+      "Registry key damage under HKLM\\SYSTEM"
+    ],
+    "recommended_actions": [
+      "Verify RPC Service",
+      "Run DISM",
+      "Run SFC"
+    ]
+  },
+
+  "Microsoft Office Click-to-Run Service": {
+    "severity": "low",
+    "category": "Office",
+    "possible_causes": [
+      "Office update conflict or interrupted installation",
+      "Office service restart after update",
+      "Corrupted Office installation files"
+    ],
+    "recommended_actions": [
+      "Repair Microsoft Office",
+      "Restart Office Click-to-Run Service"
+    ]
+  },
+
+  "Windows Update": {
+    "severity": "high",
+    "category": "System Update",
+    "possible_causes": [
+      "Corrupted Windows Update cache (SoftwareDistribution folder)",
+      "BITS service dependency failure",
+      "Windows Update database corruption",
+      "Conflicting update components"
+    ],
+    "recommended_actions": [
+      "Run DISM",
+      "Run SFC Scan",
+      "Restart Windows Update Service"
+    ]
+  },
+
+  "Background Intelligent Transfer Service": {
+    "severity": "medium",
+    "category": "Transfer Service",
+    "possible_causes": [
+      "BITS job queue corruption",
+      "Insufficient disk space for transfer cache",
+      "Network connectivity issue during transfer",
+      "Dependency on Windows Update service failed"
+    ],
+    "recommended_actions": [
+      "Restart Background Intelligent Transfer Service",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Cryptographic Services": {
+    "severity": "high",
+    "category": "Security",
+    "possible_causes": [
+      "Corrupted certificate store database",
+      "catroot2 folder corruption",
+      "CNG Key Isolation service failure",
+      "Conflict with antivirus software"
+    ],
+    "recommended_actions": [
+      "Restart Cryptographic Services",
+      "Run SFC Scan",
+      "Run DISM"
+    ]
+  },
+
+  "Windows Defender Antivirus Service": {
+    "severity": "high",
+    "category": "Security",
+    "possible_causes": [
+      "Conflicting third-party antivirus installed",
+      "Corrupted Windows Defender definition files",
+      "MsMpEng.exe crash due to malformed scan target",
+      "Tamper protection conflict"
+    ],
+    "recommended_actions": [
+      "Restart Windows Defender Antivirus Service",
+      "Run SFC Scan",
+      "Run DISM"
+    ]
+  },
+
+  "Windows Firewall": {
+    "severity": "high",
+    "category": "Security",
+    "possible_causes": [
+      "Firewall policy corruption in registry",
+      "Third-party firewall conflict",
+      "Base Filtering Engine service failure",
+      "IPSec Policy Agent dependency failure"
+    ],
+    "recommended_actions": [
+      "Restart Windows Firewall",
+      "Run SFC Scan",
+      "Verify RPC Service"
+    ]
+  },
+
+  "DHCP Client": {
+    "severity": "high",
+    "category": "Network",
+    "possible_causes": [
+      "Network adapter driver failure",
+      "Corrupted TCP/IP stack",
+      "Winsock catalog corruption",
+      "NSI service dependency failure"
+    ],
+    "recommended_actions": [
+      "Restart DHCP Client",
+      "Run SFC Scan"
+    ]
+  },
+
+  "DNS Client": {
+    "severity": "high",
+    "category": "Network",
+    "possible_causes": [
+      "DNS cache corruption",
+      "Network connectivity issue",
+      "TCP/IP stack corruption",
+      "NSI service dependency failure"
+    ],
+    "recommended_actions": [
+      "Restart DNS Client",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Network Location Awareness": {
+    "severity": "medium",
+    "category": "Network",
+    "possible_causes": [
+      "NLA dependency failure (DHCP/DNS client stopped)",
+      "Network profile database corruption",
+      "WMI service failure",
+      "Firewall service dependency failure"
+    ],
+    "recommended_actions": [
+      "Restart Network Location Awareness",
+      "Restart DHCP Client",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Windows Event Log": {
+    "severity": "high",
+    "category": "Core Service",
+    "possible_causes": [
+      "Event log file corruption (.evtx)",
+      "Disk space exhaustion on system partition",
+      "NTFS corruption on system volume",
+      "Service account permission change"
+    ],
+    "recommended_actions": [
+      "Run CHKDSK",
+      "Run SFC Scan",
+      "Run DISM"
+    ]
+  },
+
+  "Task Scheduler": {
+    "severity": "medium",
+    "category": "Core Service",
+    "possible_causes": [
+      "Corrupted task definition XML files",
+      "RPC service dependency failure",
+      "Task database corruption in C:\\Windows\\System32\\Tasks",
+      "User account permission change"
+    ],
+    "recommended_actions": [
+      "Restart Task Scheduler",
+      "Verify RPC Service",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Print Spooler": {
+    "severity": "medium",
+    "category": "Print Service",
+    "possible_causes": [
+      "Corrupted or incompatible printer driver",
+      "Stuck print job in spool folder",
+      "RPC service dependency failure",
+      "Malformed print job causing spooler crash"
+    ],
+    "recommended_actions": [
+      "Restart Print Spooler",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Windows Time": {
+    "severity": "low",
+    "category": "Core Service",
+    "possible_causes": [
+      "NTP server unreachable",
+      "System clock hardware failure (CMOS battery)",
+      "Time synchronization policy conflict",
+      "W32tm service misconfiguration"
+    ],
+    "recommended_actions": [
+      "Restart Windows Time",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Application Experience": {
+    "severity": "low",
+    "category": "Compatibility",
+    "possible_causes": [
+      "Application compatibility database corruption",
+      "Disabled as part of performance optimization",
+      "Dependency on RPC service failed"
+    ],
+    "recommended_actions": [
+      "Restart Application Experience",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Superfetch": {
+    "severity": "low",
+    "category": "Performance",
+    "possible_causes": [
+      "SysMain service database corruption",
+      "SSD optimization conflict (service often disabled on SSD)",
+      "Insufficient RAM causing prefetch thrashing",
+      "Database file corruption in PrefetchDatabase"
+    ],
+    "recommended_actions": [
+      "Restart Superfetch",
+      "Run SFC Scan"
+    ]
+  },
+
+  "SysMain": {
+    "severity": "low",
+    "category": "Performance",
+    "possible_causes": [
+      "Prefetch database corruption",
+      "High disk I/O causing service timeout",
+      "Conflict with disk encryption software"
+    ],
+    "recommended_actions": [
+      "Restart SysMain",
+      "Run CHKDSK",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Windows Audio": {
+    "severity": "medium",
+    "category": "Audio",
+    "possible_causes": [
+      "Audio driver crash or incompatibility",
+      "AudioEndpointBuilder dependency failure",
+      "Corrupted audio driver files",
+      "Third-party audio software conflict"
+    ],
+    "recommended_actions": [
+      "Restart Windows Audio",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Windows Audio Endpoint Builder": {
+    "severity": "medium",
+    "category": "Audio",
+    "possible_causes": [
+      "Audio device enumeration failure",
+      "Driver package corruption",
+      "RPC dependency failure",
+      "System file corruption in audio stack"
+    ],
+    "recommended_actions": [
+      "Restart Windows Audio Endpoint Builder",
+      "Run SFC Scan",
+      "Run DISM"
+    ]
+  },
+
+  "Plug and Play": {
+    "severity": "high",
+    "category": "Hardware",
+    "possible_causes": [
+      "Device driver database corruption",
+      "Registry corruption in HKLM\\SYSTEM\\CurrentControlSet\\Enum",
+      "RPC service dependency failure",
+      "Hardware enumeration failure"
+    ],
+    "recommended_actions": [
+      "Run SFC Scan",
+      "Run DISM",
+      "Verify RPC Service"
+    ]
+  },
+
+  "Windows Management Instrumentation": {
+    "severity": "high",
+    "category": "Management",
+    "possible_causes": [
+      "WMI repository corruption",
+      "MOF file compilation failure",
+      "DCOM Server Process Launcher failure",
+      "Circular dependency with other management services"
+    ],
+    "recommended_actions": [
+      "Restart Windows Management Instrumentation",
+      "Run SFC Scan",
+      "Run DISM"
+    ]
+  },
+
+  "COM+ Event System": {
+    "severity": "medium",
+    "category": "Core Service",
+    "possible_causes": [
+      "COM+ catalog corruption",
+      "DCOM configuration error",
+      "RPC dependency failure",
+      "Registry corruption under HKCR\\CLSID"
+    ],
+    "recommended_actions": [
+      "Restart COM+ Event System",
+      "Verify RPC Service",
+      "Run SFC Scan"
+    ]
+  },
+
+  "DCOM Server Process Launcher": {
+    "severity": "high",
+    "category": "Core Service",
+    "possible_causes": [
+      "DCOM configuration corruption",
+      "Registry damage under HKLM\\SOFTWARE\\Classes\\AppID",
+      "RPC service dependency failure",
+      "Security policy restricting DCOM activation"
+    ],
+    "recommended_actions": [
+      "Verify RPC Service",
+      "Run SFC Scan",
+      "Run DISM"
+    ]
+  },
+
+  "Remote Procedure Call (RPC)": {
+    "severity": "high",
+    "category": "Core Service",
+    "possible_causes": [
+      "Critical system service — rarely fails alone",
+      "Network stack corruption",
+      "NTLM or Kerberos authentication failure",
+      "Malware interference with RPC endpoint mapper"
+    ],
+    "recommended_actions": [
+      "Run SFC Scan",
+      "Run DISM",
+      "Verify RPC Service"
+    ]
+  },
+
+  "Server": {
+    "severity": "medium",
+    "category": "Network",
+    "possible_causes": [
+      "SMB driver failure",
+      "Network adapter driver issue",
+      "File and printer sharing configuration error",
+      "mrxsmb.sys driver corruption"
+    ],
+    "recommended_actions": [
+      "Restart Server",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Workstation": {
+    "severity": "medium",
+    "category": "Network",
+    "possible_causes": [
+      "SMB client driver failure",
+      "Network redirector (mrxsmb.sys) corruption",
+      "Dependency on Network Location Awareness failed",
+      "TCP/IP stack issue"
+    ],
+    "recommended_actions": [
+      "Restart Workstation",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Security Center": {
+    "severity": "medium",
+    "category": "Security",
+    "possible_causes": [
+      "WMI service dependency failure",
+      "Corrupted Security Center database",
+      "Third-party security software conflict",
+      "Windows Security app corruption"
+    ],
+    "recommended_actions": [
+      "Restart Security Center",
+      "Restart Windows Management Instrumentation",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Windows Installer": {
+    "severity": "medium",
+    "category": "Installation",
+    "possible_causes": [
+      "MSI database corruption",
+      "Incomplete or failed software installation",
+      "RPC service dependency failure",
+      "Temp folder permission issue"
+    ],
+    "recommended_actions": [
+      "Restart Windows Installer",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Shell Hardware Detection": {
+    "severity": "low",
+    "category": "Hardware",
+    "possible_causes": [
+      "AutoPlay configuration corruption",
+      "COM+ Event System dependency failure",
+      "USB device enumeration issue",
+      "Registry corruption under AutoPlay handlers"
+    ],
+    "recommended_actions": [
+      "Restart Shell Hardware Detection",
+      "Restart COM+ Event System",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Windows Push Notifications System Service": {
+    "severity": "low",
+    "category": "Notification",
+    "possible_causes": [
+      "WNS (Windows Notification Service) connectivity failure",
+      "Notification database corruption",
+      "Network connectivity issue",
+      "WpnUserService crash loop"
+    ],
+    "recommended_actions": [
+      "Restart Windows Push Notifications System Service",
+      "Run SFC Scan"
+    ]
+  },
+
+  "User Profile Service": {
+    "severity": "high",
+    "category": "User Account",
+    "possible_causes": [
+      "User profile registry hive corruption (NTUSER.DAT)",
+      "Insufficient disk space for profile creation",
+      "Profile permissions corruption",
+      "Group Policy conflict with roaming profiles"
+    ],
+    "recommended_actions": [
+      "Restart User Profile Service",
+      "Run SFC Scan",
+      "Run CHKDSK"
+    ]
+  },
+
+  "Group Policy Client": {
+    "severity": "high",
+    "category": "Policy",
+    "possible_causes": [
+      "Group Policy template corruption",
+      "RPC service timeout during policy application",
+      "Corrupted SYSVOL or local policy store",
+      "Registry permission issue blocking policy write"
+    ],
+    "recommended_actions": [
+      "Restart Group Policy Client",
+      "Verify RPC Service",
+      "Run SFC Scan"
+    ]
+  },
+
+  "Network Store Interface Service": {
+    "severity": "high",
+    "category": "Network",
+    "possible_causes": [
+      "NSI service is critical — failure affects all networking",
+      "TCP/IP stack corruption",
+      "Network driver (ndis.sys) failure",
+      "Winsock LSP corruption"
+    ],
+    "recommended_actions": [
+      "Run SFC Scan",
+      "Run DISM",
+      "Restart Network Store Interface Service"
+    ]
+  }
+}

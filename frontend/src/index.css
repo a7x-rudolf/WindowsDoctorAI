@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Surfaces ───────────────────────────────────────────── */
+  --color-base: #0a0e13;
+  --color-surface: #11161d;
+  --color-surface-hover: #161d26;
+  --color-surface-raised: #1a222c;
+  --color-border: #1f2630;
+  --color-border-strong: #2a3340;
+
+  /* ── Text ───────────────────────────────────────────────── */
+  --color-text: #e6edf3;
+  --color-text-muted: #8b97a6;
+  --color-text-faint: #4d5868;
+
+  /* ── Diagnostic accent (teal — the "vitals" color) ──────── */
+  --color-vital-50: #eafffb;
+  --color-vital-300: #5eead4;
+  --color-vital: #2dd4bf;
+  --color-vital-600: #14b8a6;
+  --color-vital-700: #0f9488;
+
+  /* ── Status ─────────────────────────────────────────────── */
+  --color-good: #34d399;
+  --color-good-dim: #34d39922;
+  --color-warn: #f0a83c;
+  --color-warn-dim: #f0a83c22;
+  --color-critical: #f0506b;
+  --color-critical-dim: #f0506b22;
+  --color-info: #5b9dec;
+  --color-info-dim: #5b9dec22;
+
+  /* ── Fonts ──────────────────────────────────────────────── */
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-base);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--color-vital);
+  color: #04201c;
+}
+
+/* Thin custom scrollbar — fits the instrument-panel feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-faint);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+@keyframes scan-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(220%); }
+}
+.animate-scan-sweep {
+  animation: scan-sweep 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

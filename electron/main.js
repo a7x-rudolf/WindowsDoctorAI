@@ -4,6 +4,46 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 const http = require('http');
 
+const { autoUpdater } = require('electron-updater');
+
+// ── Auto Updater ──────────────────────────────────────────────────────────────
+function setupAutoUpdater() {
+  autoUpdater.autoDownload = true;
+  autoUpdater.autoInstallOnAppQuit = true;
+
+  autoUpdater.on('update-available', (info) => {
+    dialog.showMessageBox(mainWindow, {
+      type: 'info',
+      title: 'Update Tersedia',
+      message: `Versi baru ${info.version} tersedia!\nSedang mengunduh update...`,
+      buttons: ['OK']
+    });
+  });
+
+  autoUpdater.on('update-downloaded', () => {
+    dialog.showMessageBox(mainWindow, {
+      type: 'question',
+      title: 'Update Siap',
+      message: 'Update sudah diunduh. Restart sekarang untuk menginstall?',
+      buttons: ['Restart Sekarang', 'Nanti']
+    }).then((result) => {
+      if (result.response === 0) {
+        autoUpdater.quitAndInstall();
+      }
+    });
+  });
+
+  autoUpdater.on('error', (err) => {
+    console.error('Auto updater error:', err);
+  });
+
+  // Cek update setiap 1 jam
+  autoUpdater.checkForUpdatesAndNotify();
+  setInterval(() => {
+    autoUpdater.checkForUpdatesAndNotify();
+  }, 60 * 60 * 1000);
+}
+
 let mainWindow;
 let splashWindow;
 let backendProcess;
@@ -261,6 +301,7 @@ app.whenReady().then(() => {
   startBackend();
   waitForBackend(() => {
     createWindow();
+	setupAutoUpdater();
   });
 });
 

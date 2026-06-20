@@ -34,3 +34,5 @@ export const fetchActionHistory = (limit = 50) =>
   API.get(`/history/actions?limit=${limit}`).then((r) => r.data);
 
 export const ACTION_ENDPOINT = `${API.defaults.baseURL}/action/run`;
+
+export const fetchAIAnalysis = () => API.get("/ai/analyze").then((r) => r.data);

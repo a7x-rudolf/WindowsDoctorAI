@@ -25,6 +25,9 @@ from app.collector.system_collector import get_system_info
 
 from app.services.hardware_diagnosis_engine import diagnose_hardware
 
+# ── Ai Groq) ───────────────────────────────────────────────
+from app.services.ai_engine import analyze_with_ai
+
 # ── History database ─────────────────────────────────────────────────────────
 from app.db import history_db
 
@@ -300,6 +303,56 @@ def overview():
         },
     }
 
+# ── AI Analysis ───────────────────────────────────────────────────────────────
+
+@app.get("/ai/analyze")
+def ai_analyze():
+    """
+    Endpoint AI Analysis — kumpulkan semua data sistem lalu
+    kirim ke Groq AI untuk diagnosis mendalam.
+    """
+    # Kumpulkan semua data
+    scan_result = get_system_errors()
+    windows_part = {"health_score": None, "overall_health": "Unknown", "critical_issues": []}
+
+    if scan_result["success"]:
+        grouped = group_events(scan_result["events"])
+        enriched, penalty = enrich_events(grouped)
+        score = calculate_health_score(penalty)
+        windows_analysis = analyze_system(grouped)
+        windows_part = {
+            "health_score": score,
+            "overall_health": windows_analysis["overall_health"],
+            "critical_issues": windows_analysis["critical_issues"],
+        }
+
+    cpu_info = get_cpu_info()
+    memory_info = get_memory_info()
+    disk_health = get_disk_health()
+    gpu_info = get_gpu_info()
+    driver_health = get_driver_health()
+
+    hardware_diag = diagnose_hardware(
+        cpu_info=cpu_info,
+        memory_info=memory_info,
+        disk_health=disk_health,
+        gpu_info=gpu_info,
+        driver_health=driver_health,
+    )
+
+    # Kirim ke AI
+    scan_data = {
+        "windows": windows_part,
+        "hardware": {
+            "cpu": cpu_info,
+            "memory": memory_info,
+            "disk": disk_health,
+            "findings": hardware_diag.get("findings", []),
+        }
+    }
+
+    ai_result = analyze_with_ai(scan_data)
+    return ai_result
 
 # ── History ───────────────────────────────────────────────────────────────────
 

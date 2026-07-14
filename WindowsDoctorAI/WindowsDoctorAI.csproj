@@ -1,0 +1,152 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+		<RootNamespace>WindowsDoctorAI</RootNamespace>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<Platforms>x64</Platforms>
+		<RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+		<UseWinUI>true</UseWinUI>
+		<WindowsPackageType>None</WindowsPackageType>
+		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+		<EnableMsixTooling>true</EnableMsixTooling>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- ============ APPLICATION ICON ============ -->
+		<ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
+
+		<!-- ============ APPLICATION METADATA ============ -->
+		<AssemblyTitle>WindowsDoctorAI</AssemblyTitle>
+		<AssemblyDescription>Premium Windows System Diagnostic and Repair Tool</AssemblyDescription>
+		<AssemblyCompany>RIDOLF WIDI ALFISA LUMBA</AssemblyCompany>
+		<AssemblyProduct>WindowsDoctorAI</AssemblyProduct>
+		<AssemblyCopyright>Copyright © 2025 RIDOLF WIDI ALFISA LUMBA. All Rights Reserved.</AssemblyCopyright>
+		<AssemblyVersion>2.0.0.0</AssemblyVersion>
+		<FileVersion>2.0.0.0</FileVersion>
+		<Version>2.0.0</Version>
+		<Product>WindowsDoctorAI - Premium Edition</Product>
+		<Authors>RIDOLF WIDI ALFISA LUMBA</Authors>
+		<Copyright>Copyright © 2025 RIDOLF WIDI ALFISA LUMBA. All Rights Reserved.</Copyright>
+
+		<!-- ============ RID COMPATIBILITY ============ -->
+		<RuntimeIdentifierCompatibilityVersion>net6.0</RuntimeIdentifierCompatibilityVersion>
+		<UseRidGraph>true</UseRidGraph>
+
+		<!-- ============ DISABLE AOT ============ -->
+		<PublishAot>false</PublishAot>
+		<IsAotCompatible>false</IsAotCompatible>
+		<IsTrimmable>false</IsTrimmable>
+
+		<!-- ============ SUPPRESS NOISE ============ -->
+		<NoWarn>$(NoWarn);NETSDK1206;CsWinRT1028;CsWinRT1029;CsWinRT1030;CA1822;CA1416;IDE0028;IDE0042;IDE0090;WMC0011</NoWarn>
+
+		<AnalysisLevel>latest</AnalysisLevel>
+		<EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
+		<RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+
+	</PropertyGroup>
+
+	<!-- ============ NUGET PACKAGES ============ -->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240627000" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="System.Management" Version="8.0.0" />
+		<PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+		<PackageReference Include="System.ServiceProcess.ServiceController" Version="8.0.0" />
+	</ItemGroup>
+
+	<!-- ============ ASSETS (Icons, Images) ============ -->
+	<ItemGroup>
+		<!-- Application Icon (multi-size ICO) -->
+		<Content Include="Assets\AppIcon.ico">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+
+		<!-- All PNG assets -->
+		<Content Include="Assets\*.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+
+		<!-- All other assets (kalau ada JPG, SVG, dll) -->
+		<Content Include="Assets\*.jpg" Condition="Exists('Assets\*.jpg')">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<!-- ============ REMOVE DUPLICATE XAML ENTRIES ============ -->
+	<ItemGroup>
+		<None Remove="Dialogs\ConfirmRepairDialog.xaml" />
+		<None Remove="Dialogs\RepairProgressDialog.xaml" />
+		<None Remove="Dialogs\ResultDetailDialog.xaml" />
+		<None Remove="Dialogs\ScanProgressDialog.xaml" />
+		<None Remove="Views\HistoryPage.xaml" />
+		<None Remove="Views\SettingsPage.xaml" />
+		<None Remove="Views\SystemInfoPage.xaml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="Assets\AppIcon.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Assets\Icon.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Assets\LockScreenLogo.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Assets\SplashScreen.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Assets\Square150x150Logo.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Assets\Square44x44Logo.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Assets\StoreLogo.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Assets\Wide310x150Logo.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<!-- ============ XAML PAGES CONFIGURATION ============ -->
+	<ItemGroup>
+		<!-- Dialogs -->
+		<Page Update="Dialogs\ConfirmRepairDialog.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Update="Dialogs\RepairProgressDialog.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Update="Dialogs\ResultDetailDialog.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Update="Dialogs\ScanProgressDialog.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+
+		<!-- Views -->
+		<Page Update="Views\SettingsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Update="Views\SystemInfoPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Update="Views\HistoryPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+
+		<!-- Styles (path akan disesuaikan berdasarkan folder Anda) -->
+		<Page Update="Styles\AppStyles.xaml" Condition="Exists('Styles\AppStyles.xaml')">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Update="Style\AppStyles.xaml" Condition="Exists('Style\AppStyles.xaml')">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+</Project>

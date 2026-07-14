@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="WindowsDoctorAI.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    NavigationCacheMode="Required">
+
+    <Grid Padding="32,24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Spacing="4" Margin="0,0,0,24">
+            <TextBlock Text="Settings" Style="{StaticResource PageTitleStyle}" />
+            <TextBlock Text="Configure WindowsDoctorAI application preferences"
+                       Style="{StaticResource PageSubtitleStyle}" />
+        </StackPanel>
+
+        <!-- 2-Column Layout -->
+        <Grid Grid.Row="1" ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="*" MinWidth="600" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: Section Navigation -->
+            <StackPanel Grid.Column="0" Spacing="4">
+                <Button x:Name="NavAppearance" HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="14,10" CornerRadius="6"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                        BorderThickness="0"
+                        Click="NavSection_Click" Tag="Appearance">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <FontIcon Glyph="&#xE790;" FontSize="14" />
+                        <TextBlock Text="Appearance" FontWeight="SemiBold" />
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="NavScanPrefs" HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="14,10" CornerRadius="6"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="NavSection_Click" Tag="ScanPrefs">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <FontIcon Glyph="&#xE773;" FontSize="14" />
+                        <TextBlock Text="Scan Preferences" />
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="NavNotifications" HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="14,10" CornerRadius="6"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="NavSection_Click" Tag="Notifications">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <FontIcon Glyph="&#xEA8F;" FontSize="14" />
+                        <TextBlock Text="Notifications" />
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="NavAdvanced" HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="14,10" CornerRadius="6"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="NavSection_Click" Tag="Advanced">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <FontIcon Glyph="&#xE713;" FontSize="14" />
+                        <TextBlock Text="Advanced" />
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="NavAbout" HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="14,10" CornerRadius="6"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="NavSection_Click" Tag="About">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <FontIcon Glyph="&#xE946;" FontSize="14" />
+                        <TextBlock Text="About" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <!-- Right: Content -->
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel Spacing="16">
+
+                    <!-- Section: Appearance -->
+                    <StackPanel x:Name="AppearanceSection" Spacing="12">
+                        <TextBlock Text="Appearance" Style="{StaticResource SectionTitleStyle}" Margin="0" />
+                        <TextBlock Text="Customize the look and feel of the application"
+                                   Style="{StaticResource PageSubtitleStyle}" />
+
+                        <Border Style="{StaticResource PremiumCardStyle}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Width="40" Height="40" CornerRadius="6"
+                                        Background="{StaticResource StatusInfoBgBrush}"
+                                        Margin="0,0,14,0" VerticalAlignment="Center">
+                                    <FontIcon Glyph="&#xE790;" FontSize="18"
+                                              Foreground="{StaticResource StatusInfoBrush}" />
+                                </Border>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="Application Theme" FontWeight="SemiBold" FontSize="14" />
+                                    <TextBlock Text="Choose how the application looks"
+                                               FontSize="12"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                </StackPanel>
+
+                                <ComboBox Grid.Column="2" x:Name="ThemeCombo" MinWidth="180"
+                                          SelectionChanged="ThemeCombo_SelectionChanged"
+                                          VerticalAlignment="Center">
+                                    <ComboBoxItem Content="Use System Setting" Tag="Default" />
+                                    <ComboBoxItem Content="Light" Tag="Light" />
+                                    <ComboBoxItem Content="Dark" Tag="Dark" />
+                                </ComboBox>
+                            </Grid>
+                        </Border>
+
+                        <Border Style="{StaticResource PremiumCardStyle}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Width="40" Height="40" CornerRadius="6"
+                                        Background="{StaticResource StatusInfoBgBrush}"
+                                        Margin="0,0,14,0" VerticalAlignment="Center">
+                                    <FontIcon Glyph="&#xE8B7;" FontSize="18"
+                                              Foreground="{StaticResource StatusInfoBrush}" />
+                                </Border>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="Compact Mode" FontWeight="SemiBold" FontSize="14" />
+                                    <TextBlock Text="Reduce spacing between elements for smaller screens"
+                                               FontSize="12"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                </StackPanel>
+
+                                <ToggleSwitch Grid.Column="2" OffContent="" OnContent="" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Section: Scan Preferences -->
+                    <StackPanel x:Name="ScanPrefsSection" Spacing="12" Visibility="Collapsed">
+                        <TextBlock Text="Scan Preferences" Style="{StaticResource SectionTitleStyle}" Margin="0" />
+                        <TextBlock Text="Configure how diagnostic scans behave"
+                                   Style="{StaticResource PageSubtitleStyle}" />
+
+                        <Border Style="{StaticResource PremiumCardStyle}">
+                            <StackPanel Spacing="14">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="Enable weekly automatic scans" FontWeight="SemiBold" FontSize="14" />
+                                        <TextBlock Text="Run a full system scan every 7 days automatically"
+                                                   FontSize="12" TextWrapping="Wrap"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                    </StackPanel>
+                                    <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" />
+                                </Grid>
+
+                                <Rectangle Height="1" Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="Save reports to Desktop" FontWeight="SemiBold" FontSize="14" />
+                                        <TextBlock Text="Automatically save HTML reports after each scan"
+                                                   FontSize="12" TextWrapping="Wrap"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                    </StackPanel>
+                                    <ToggleSwitch Grid.Column="1" IsOn="True" OffContent="" OnContent="" />
+                                </Grid>
+
+                                <Rectangle Height="1" Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="Include healthy checks in reports" FontWeight="SemiBold" FontSize="14" />
+                                        <TextBlock Text="Show all checks (not just issues) in exported reports"
+                                                   FontSize="12" TextWrapping="Wrap"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                    </StackPanel>
+                                    <ToggleSwitch Grid.Column="1" IsOn="True" OffContent="" OnContent="" />
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Section: Notifications -->
+                    <StackPanel x:Name="NotificationsSection" Spacing="12" Visibility="Collapsed">
+                        <TextBlock Text="Notifications" Style="{StaticResource SectionTitleStyle}" Margin="0" />
+                        <TextBlock Text="Control when and how notifications appear"
+                                   Style="{StaticResource PageSubtitleStyle}" />
+
+                        <Border Style="{StaticResource PremiumCardStyle}">
+                            <StackPanel Spacing="14">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="Critical issue alerts" FontWeight="SemiBold" FontSize="14" />
+                                        <TextBlock Text="Show desktop notification when critical issues are found"
+                                                   FontSize="12" TextWrapping="Wrap"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                    </StackPanel>
+                                    <ToggleSwitch Grid.Column="1" IsOn="True" OffContent="" OnContent="" />
+                                </Grid>
+
+                                <Rectangle Height="1" Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="Repair completion notifications" FontWeight="SemiBold" FontSize="14" />
+                                        <TextBlock Text="Show toast when repair actions complete"
+                                                   FontSize="12" TextWrapping="Wrap"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                    </StackPanel>
+                                    <ToggleSwitch Grid.Column="1" IsOn="True" OffContent="" OnContent="" />
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Section: Advanced -->
+                    <StackPanel x:Name="AdvancedSection" Spacing="12" Visibility="Collapsed">
+                        <TextBlock Text="Advanced" Style="{StaticResource SectionTitleStyle}" Margin="0" />
+                        <TextBlock Text="Advanced settings for power users"
+                                   Style="{StaticResource PageSubtitleStyle}" />
+
+                        <Border Style="{StaticResource PremiumCardStyle}">
+                            <StackPanel Spacing="14">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="Enable diagnostic logging" FontWeight="SemiBold" FontSize="14" />
+                                        <TextBlock Text="Write detailed logs to help troubleshoot issues"
+                                                   FontSize="12" TextWrapping="Wrap"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                    </StackPanel>
+                                    <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" />
+                                </Grid>
+
+                                <Rectangle Height="1" Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="Send anonymous usage statistics" FontWeight="SemiBold" FontSize="14" />
+                                        <TextBlock Text="Help improve the app by sharing anonymous usage data"
+                                                   FontSize="12" TextWrapping="Wrap"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                    </StackPanel>
+                                    <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" />
+                                </Grid>
+
+                                <Rectangle Height="1" Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="Reset all settings" FontWeight="SemiBold" FontSize="14" />
+                                        <TextBlock Text="Restore application to default configuration"
+                                                   FontSize="12" TextWrapping="Wrap"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                    </StackPanel>
+                                    <Button Grid.Column="1" Content="Reset" Style="{StaticResource PremiumButtonStyle}" />
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Section: About -->
+                    <StackPanel x:Name="AboutSection" Spacing="12" Visibility="Collapsed">
+                        <TextBlock Text="About" Style="{StaticResource SectionTitleStyle}" Margin="0" />
+                        <TextBlock Text="Application information"
+                                   Style="{StaticResource PageSubtitleStyle}" />
+
+                        <Border Style="{StaticResource PremiumCardStyle}">
+                            <StackPanel Spacing="12">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" Width="60" Height="60" CornerRadius="12"
+                                            Background="{StaticResource AccentGradientBrush}"
+                                            Margin="0,0,16,0">
+                                        <FontIcon Glyph="&#xE95E;" FontSize="28" Foreground="White" />
+                                    </Border>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="WindowsDoctorAI" FontSize="18" FontWeight="Bold" />
+                                        <TextBlock Text="Version 2.0.0 - Premium Edition" FontSize="13"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                        <TextBlock Text="© 2026 - Comprehensive Windows Diagnostic Tool"
+                                                   FontSize="11"
+                                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <Border Height="20" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

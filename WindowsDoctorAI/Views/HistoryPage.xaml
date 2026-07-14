@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="WindowsDoctorAI.Views.HistoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    NavigationCacheMode="Required">
+
+    <Grid Padding="32,24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Spacing="4" Margin="0,0,0,20">
+            <TextBlock Text="Scan History" Style="{StaticResource PageTitleStyle}" />
+            <TextBlock Text="Review previous diagnostic scans and trends over time"
+                       Style="{StaticResource PageSubtitleStyle}" />
+        </StackPanel>
+
+        <!-- Coming Soon State -->
+        <Border Grid.Row="1"
+                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1" CornerRadius="8">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Spacing="16" HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Padding="40" MaxWidth="550">
+
+                    <!-- Icon -->
+                    <Border Width="80" Height="80" CornerRadius="40"
+                            Background="{StaticResource StatusInfoBgBrush}"
+                            HorizontalAlignment="Center">
+                        <FontIcon Glyph="&#xE81C;" FontSize="36"
+                                  Foreground="{StaticResource StatusInfoBrush}" />
+                    </Border>
+
+                    <!-- Coming Soon Badge -->
+                    <Border HorizontalAlignment="Center"
+                            Padding="12,5" CornerRadius="100"
+                            Background="{StaticResource StatusInfoBgBrush}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE121;" FontSize="10"
+                                      Foreground="{StaticResource StatusInfoBrush}"
+                                      VerticalAlignment="Center" />
+                            <TextBlock Text="COMING SOON IN v2.1.0"
+                                       FontSize="10" FontWeight="Bold"
+                                       Foreground="{StaticResource StatusInfoBrush}"
+                                       CharacterSpacing="80"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Title -->
+                    <TextBlock Text="Scan History Feature"
+                               FontSize="24" FontWeight="SemiBold"
+                               HorizontalAlignment="Center"
+                               Margin="0,8,0,0" />
+
+                    <!-- Description -->
+                    <TextBlock TextAlignment="Center" TextWrapping="Wrap"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               FontSize="14" MaxWidth="450">
+                        <Run Text="Scan history persistence with SQLite database will be available in the next update." />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="Currently, your scan results are tracked in the current session only. Navigate to " />
+                        <Run Text="Scan Results" FontWeight="SemiBold" />
+                        <Run Text=" to view your latest scan." />
+                    </TextBlock>
+
+                    <!-- What's Coming Section -->
+                    <Border Background="{ThemeResource ControlFillColorTertiaryBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1" CornerRadius="8" Padding="20"
+                            Margin="0,8,0,0" HorizontalAlignment="Stretch">
+                        <StackPanel Spacing="12">
+                            <TextBlock Text="WHAT'S COMING IN v2.1.0"
+                                       FontSize="11" FontWeight="SemiBold"
+                                       Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                       CharacterSpacing="80" />
+
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon Glyph="&#xE73E;" FontSize="14"
+                                          Foreground="{StaticResource StatusHealthyBrush}"
+                                          VerticalAlignment="Center" />
+                                <TextBlock Text="Historical scan tracking with SQLite storage"
+                                           FontSize="13" VerticalAlignment="Center" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon Glyph="&#xE73E;" FontSize="14"
+                                          Foreground="{StaticResource StatusHealthyBrush}"
+                                          VerticalAlignment="Center" />
+                                <TextBlock Text="Health score trend visualization over time"
+                                           FontSize="13" VerticalAlignment="Center" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon Glyph="&#xE73E;" FontSize="14"
+                                          Foreground="{StaticResource StatusHealthyBrush}"
+                                          VerticalAlignment="Center" />
+                                <TextBlock Text="Compare current vs previous scan results"
+                                           FontSize="13" VerticalAlignment="Center" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon Glyph="&#xE73E;" FontSize="14"
+                                          Foreground="{StaticResource StatusHealthyBrush}"
+                                          VerticalAlignment="Center" />
+                                <TextBlock Text="Export historical reports (HTML/PDF)"
+                                           FontSize="13" VerticalAlignment="Center" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon Glyph="&#xE73E;" FontSize="14"
+                                          Foreground="{StaticResource StatusHealthyBrush}"
+                                          VerticalAlignment="Center" />
+                                <TextBlock Text="Automatic scheduled scans"
+                                           FontSize="13" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Action Button -->
+                    <Button Content="Go to Diagnostic Scan"
+                            Style="{StaticResource PremiumPrimaryButtonStyle}"
+                            HorizontalAlignment="Center" Margin="0,8,0,0"
+                            Click="GoToScan_Click" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Page>

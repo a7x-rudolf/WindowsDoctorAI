@@ -2,7 +2,7 @@
 
 # 🩺 WindowsDoctorAI
 
-**Comprehensive Windows System Diagnostic & Repair Tool**
+**Windows Diagnostic & Repair Tool**
 
 [![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](CHANGELOG.md)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D4.svg)]()

@@ -1,5 +1,3 @@
-<meta name="google-site-verification" content="mLkSj4PZipfis9SbDy8AN7mJjni_4LdB57wteyGkE6M" />
-
 <div align="center">
 
 # 🩺 WindowsDoctorAI

@@ -80,7 +80,8 @@ Meskipun copyright dimiliki oleh RIDOLF WIDI ALFISA LUMBA, software ini **dilise
 | **Development Start** | 2025 | Mulai coding dengan WinUI 3 + .NET 8 |
 | **UI/UX Design** | 2025 | Fluent Design implementation |
 | **v2.0.0 Release** | Juli 2025 | Public release Premium Edition |
-| **v2.1.0 Planned** | Q4 2025 | Scan history, dark mode audit, code signing |
+| **v2.0.1 Release** | Juli 2025 | Dark mode redesign, localization foundation, app settings store |
+| **v2.1.0 Planned** | Q4 2025 | Scan history, code signing |
 | **v2.2.0 Planned** | Q1 2026 | Parallel scans, unit tests, DI migration |
 | **v3.0.0 Aspirational** | Future | AI recommendations, MSIX, i18n |
 

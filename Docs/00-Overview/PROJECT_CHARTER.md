@@ -234,16 +234,22 @@ Proyek ini dianggap **sukses** apabila memenuhi kriteria berikut:
 
 ## 13. Roadmap Singkat
 
-### v2.0.0 (Current — Juli 2025)
+### v2.0.0 (Juli 2025)
 - ✅ Complete rewrite ke WinUI 3
 - ✅ 7 diagnostic categories
 - ✅ 30+ repair actions
 - ✅ Premium UI dengan Fluent Design
 - ✅ P0 documentation
 
+### v2.0.1 (Current — Juli 2025)
+- ✅ Dark mode visual audit & Dashboard UI redesign
+- ✅ Risk level converters (background/foreground/score)
+- ✅ Localization service foundation (EN/ID)
+- ✅ Persistent app settings store
+- ✅ Installer script updates
+
 ### v2.1.0 (Q4 2025 — Target)
 - Scan history persistence (SQLite)
-- Dark mode visual audit
 - Code signing certificate
 - README/CHANGELOG improvements
 - P1 documentation
@@ -257,7 +263,7 @@ Proyek ini dianggap **sukses** apabila memenuhi kriteria berikut:
 ### v3.0.0 (Future — Aspirational)
 - AI-powered recommendations
 - MSIX packaging + Microsoft Store
-- Multi-language support (i18n)
+- Full multi-language support (i18n) built on the v2.0.1 localization foundation
 - Cloud sync (optional)
 
 ---

@@ -4,7 +4,7 @@
 
 **Windows Diagnostic & Repair Tool**
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.0.1-blue.svg)](CHANGELOG.md)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D4.svg)]()
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4.svg)]()
 [![WinUI 3](https://img.shields.io/badge/WinUI-3.0-purple.svg)]()
@@ -232,7 +232,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 **Made with ❤️ by RIDOLF WIDI ALFISA LUMBA**
 
-*Version 2.0.0 - Premium Edition*
+*Version 2.0.1 - Premium Edition*
 
 *Copyright © 2025 RIDOLF WIDI ALFISA LUMBA. All Rights Reserved.*
 

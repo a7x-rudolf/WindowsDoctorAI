@@ -547,9 +547,9 @@ Screenshot bug dan report ke GitHub Issues sangat membantu debug.
 
 ### Q35: Dark mode tidak berfungsi dengan baik
 
-**A:** **Diketahui issue** di v2.0.0. Dark mode functional tapi beberapa elemen visual belum ter-audit optimal. Fix planned di **v2.1.0**.
+**A:** Ini adalah **known issue di v2.0.0** (dark mode functional tapi beberapa elemen visual belum ter-audit optimal). Sudah **diperbaiki di v2.0.1** — Dashboard UI di-redesign dengan dukungan dark mode penuh dan hierarki visual yang lebih baik.
 
-Workaround: Gunakan Light theme untuk pengalaman terbaik di v2.0.0.
+Kalau kamu masih menemukan elemen yang belum konsisten di dark mode setelah update ke v2.0.1, silakan report ke GitHub Issues.
 
 ---
 
@@ -647,6 +647,7 @@ Jika pertanyaan Anda tidak terjawab di FAQ ini:
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
 | 1.0 | 15 Juli 2025 | Initial FAQ for WindowsDoctorAI v2.0.0 | **RIDOLF WIDI ALFISA LUMBA** |
+| 1.1 | 17 Juli 2025 | Updated Q35 (dark mode) to reflect fix shipped in v2.0.1 | **RIDOLF WIDI ALFISA LUMBA** |
 
 ---
 

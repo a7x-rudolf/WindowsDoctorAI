@@ -735,7 +735,7 @@ User Input → UI → ViewModel (safe)
 
 ## 11. Testing Strategy
 
-### 11.1 Current State (v2.0.0)
+### 11.1 Current State (v2.0.1)
 
 - ❌ **No Unit Tests** (planned v2.1.0)
 - ✅ **Manual Testing** performed by developer
@@ -753,10 +753,10 @@ User Input → UI → ViewModel (safe)
 
 ### 12.1 Distribution Format
 
-**Current (v2.0.0):**
+**Current (v2.0.1):**
 - **Self-Contained EXE** dengan .NET 8 runtime bundled
 - Ukuran: ~150 MB (compressed) / ~250 MB (extracted)
-- Portable (no installer)
+- Distributed via Inno Setup installer (`WindowsDoctorAI-Setup-x64.exe`) with shortcuts & uninstaller
 
 **Future (v3.0.0+):**
 - **MSIX Package** untuk Microsoft Store
@@ -773,11 +773,14 @@ User Input → UI → ViewModel (safe)
 
 ## 13. Future Architecture Evolution
 
+### 13.0 v2.0.1 Delivered (previously planned here)
+
+- ✅ **Settings Persistence** — delivered via `AppSettingsStore` (Helpers)
+- ✅ **Dark Mode Audit** — Dashboard UI redesigned with full dark mode support
+
 ### 13.1 v2.1.0 Planned Changes
 
 - **Scan History Persistence** dengan SQLite
-- **Settings Persistence** dengan ApplicationData.LocalSettings
-- **Dark Mode Audit** untuk visual consistency
 
 ### 13.2 v2.2.0 Planned Changes
 
@@ -798,12 +801,13 @@ User Input → UI → ViewModel (safe)
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
 | 1.0 | 15 Juli 2025 | Initial architecture documentation | RIDOLF WIDI ALFISA LUMBA |
+| 1.1 | 17 Juli 2025 | Updated for v2.0.1: settings persistence & dark mode audit moved from planned to delivered, installer distribution corrected | RIDOLF WIDI ALFISA LUMBA |
 
 ---
 
 <div align="center">
 
-**Architecture Documentation for WindowsDoctorAI v2.0.0**
+**Architecture Documentation for WindowsDoctorAI v2.0.1**
 
 Authored by **RIDOLF WIDI ALFISA LUMBA**
 

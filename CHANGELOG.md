@@ -23,13 +23,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Planned
 - Scan history persistence (SQLite)
 - Parallel scan execution
-- Dark mode visual audit
 - Unit test coverage
 - MSIX packaging for Microsoft Store
 
 ---
 
-## [2.0.1] - 2025-07-15 - Premium Edition
+## [2.0.1] - 2025-07-16 - Dark Mode Release
+
+### ✨ Added
+- `Converters/RiskLevelToBackgroundConverter.cs` — visual background indicator for scan result risk levels
+- `Converters/RiskLevelToForegroundConverter.cs` — visual foreground indicator for scan result risk levels
+- `Converters/ScoreToFractionConverter.cs` — health score display as fraction
+- `Helpers/AppSettingsStore.cs` — persistent user preferences storage
+- `Services/LocalizationService.cs` — multi-language support foundation (EN/ID)
+- `Docs/07-Deployment/Ringkasan Prosedur (Cheat Sheet).md`
+- `Docs/07-Deployment/UPDATE_RELEASE_PROCEDURE.md`
+
+### 🎨 Changed
+- Dashboard UI redesign with full dark mode support and improved visual hierarchy (resolves the dark mode visual audit item tracked since v2.0.0)
+- Category cards layout: fixed responsive grid for better UX (`DashboardPage.xaml`/`.xaml.cs`)
+- `SettingsPage.xaml` integrated with `ThemeService`
+- `AppStyles.xaml` updated for dark mode styling
+- `WindowsDoctorAI-Setup.iss` installer script updates
+
+### 🐛 Fixed
+- Dark mode: known visual inconsistencies from v2.0.0 audited and resolved
+
+---
+
+## [2.0.0] - 2025-07-14 - Premium Edition
 
 ### 🎉 Major Release: Complete Rewrite
 
@@ -128,7 +150,7 @@ original codebase to modern .NET 8.0 and WinUI 3 with a premium Fluent Design UI
 ### Note
 Version 1.0.0 refers to the original codebase from [a7x-rudolf/WindowsDoctorAI](https://github.com/a7x-rudolf/WindowsDoctorAI).
 
-Version 2.0.1 represents a complete rewrite and modernization effort, transitioning from the original implementation to a modern WinUI 3 + .NET 8.0 architecture.
+Version 2.0.0 represents a complete rewrite and modernization effort, transitioning from the original implementation to a modern WinUI 3 + .NET 8.0 architecture. Version 2.0.1 followed shortly after with a dark mode UI pass and related fixes.
 
 ---
 
@@ -150,6 +172,7 @@ This project follows [Semantic Versioning](https://semver.org/):
 
 ---
 
-[Unreleased]: ../../compare/v2.0.0...HEAD
+[Unreleased]: ../../compare/v2.0.1...HEAD
+[2.0.1]: ../../releases/tag/v2.0.1
 [2.0.0]: ../../releases/tag/v2.0.0
 [1.0.0]: https://github.com/a7x-rudolf/WindowsDoctorAI

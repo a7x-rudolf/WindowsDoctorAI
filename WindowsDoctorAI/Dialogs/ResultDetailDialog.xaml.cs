@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Media;
 using WindowsDoctorAI.Helpers;
 using WindowsDoctorAI.Models;
 using WindowsDoctorAI.ViewModels;
+using WindowsDoctorAI.Views;
 
 namespace WindowsDoctorAI.Dialogs;
 
@@ -15,6 +16,7 @@ public sealed partial class ResultDetailDialog : ContentDialog
     public ResultDetailDialog(DiagnosticResult result, MainViewModel viewModel)
     {
         this.InitializeComponent();
+        ThemeService.ApplyToDialog(this);
         _result = result;
         _viewModel = viewModel;
 

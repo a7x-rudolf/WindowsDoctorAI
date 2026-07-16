@@ -326,15 +326,16 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Border Grid.Column="0" Width="60" Height="60" CornerRadius="12"
-                                            Background="{StaticResource AccentGradientBrush}"
-                                            Margin="0,0,16,0">
-                                        <FontIcon Glyph="&#xE95E;" FontSize="28" Foreground="White" />
+                                            Margin="0,0,16,0">      
+                                        <Image Source="/Assets/AppIcon.png" 
+                                               Width="60" Height="60" 
+                                               Stretch="Uniform" />
                                     </Border>
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                         <TextBlock Text="WindowsDoctorAI" FontSize="18" FontWeight="Bold" />
-                                        <TextBlock Text="Version 2.0.0 - Premium Edition" FontSize="13"
+                                        <TextBlock Text="Version 2.0.1 - Premium Edition" FontSize="13"
                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                                        <TextBlock Text="© 2026 - Comprehensive Windows Diagnostic Tool"
+                                        <TextBlock Text="© 2026 - Ridolf Widi Alfisa Lumba"
                                                    FontSize="11"
                                                    Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
                                     </StackPanel>

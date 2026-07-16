@@ -3,54 +3,66 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- ============ BRAND BRUSHES ============ -->
-    <SolidColorBrush x:Key="BrandAccentBrush" Color="#0067C0" />
-    <SolidColorBrush x:Key="BrandAccentSecondaryBrush" Color="#005BA1" />
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- BRAND COLORS v2.0.1 - Blue Accent (synced with app icon) -->
+    <!-- ════════════════════════════════════════════════════════ -->
+
+    <!-- Brand Accent (Blue - matching icon) -->
+    <SolidColorBrush x:Key="BrandAccentBrush" Color="#1a8fc4" />
+    <SolidColorBrush x:Key="BrandAccentSecondaryBrush" Color="#1578a7" />
     <SolidColorBrush x:Key="BrandAccentTertiaryBrush" Color="#4CC2FF" />
+    <SolidColorBrush x:Key="BrandAccentBgBrush" Color="#1A1a8fc4" />
 
-    <SolidColorBrush x:Key="StatusHealthyBrush" Color="#0F7B0F" />
-    <SolidColorBrush x:Key="StatusHealthyBgBrush" Color="#140F7B0F" />
-    <SolidColorBrush x:Key="StatusWarningBrush" Color="#B7710D" />
-    <SolidColorBrush x:Key="StatusWarningBgBrush" Color="#14B7710D" />
-    <SolidColorBrush x:Key="StatusCriticalBrush" Color="#C42B1C" />
-    <SolidColorBrush x:Key="StatusCriticalBgBrush" Color="#14C42B1C" />
-    <SolidColorBrush x:Key="StatusInfoBrush" Color="#005FB8" />
-    <SolidColorBrush x:Key="StatusInfoBgBrush" Color="#14005FB8" />
+    <!-- Status Colors (Universal - tidak berubah) -->
+    <SolidColorBrush x:Key="StatusHealthyBrush" Color="#2ecc71" />
+    <SolidColorBrush x:Key="StatusHealthyBgBrush" Color="#142ecc71" />
+    <SolidColorBrush x:Key="StatusWarningBrush" Color="#e67e22" />
+    <SolidColorBrush x:Key="StatusWarningBgBrush" Color="#14e67e22" />
+    <SolidColorBrush x:Key="StatusCriticalBrush" Color="#e74c3c" />
+    <SolidColorBrush x:Key="StatusCriticalBgBrush" Color="#14e74c3c" />
+    <SolidColorBrush x:Key="StatusInfoBrush" Color="#3498db" />
+    <SolidColorBrush x:Key="StatusInfoBgBrush" Color="#143498db" />
 
-    <!-- Card hover accent -->
-    <SolidColorBrush x:Key="CardHoverBorderBrush" Color="#4C0067C0" />
+    <!-- Card Hover Border -->
+    <SolidColorBrush x:Key="CardHoverBorderBrush" Color="#4C1a8fc4" />
 
-    <!-- ============ GRADIENTS ============ -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- GRADIENTS -->
+    <!-- ════════════════════════════════════════════════════════ -->
+
     <LinearGradientBrush x:Key="AccentGradientBrush" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#0067C0" Offset="0" />
-        <GradientStop Color="#4CC2FF" Offset="1" />
+        <GradientStop Color="#0a1628" Offset="0" />
+        <GradientStop Color="#1a8fc4" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="HealthyGradientBrush" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#0F7B0F" Offset="0" />
-        <GradientStop Color="#2BA82B" Offset="1" />
+        <GradientStop Color="#2ecc71" Offset="0" />
+        <GradientStop Color="#27ae60" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="WarningGradientBrush" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#B7710D" Offset="0" />
-        <GradientStop Color="#8F5709" Offset="1" />
+        <GradientStop Color="#e67e22" Offset="0" />
+        <GradientStop Color="#d35400" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="CriticalGradientBrush" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#C42B1C" Offset="0" />
-        <GradientStop Color="#8F1E15" Offset="1" />
+        <GradientStop Color="#e74c3c" Offset="0" />
+        <GradientStop Color="#c0392b" Offset="1" />
     </LinearGradientBrush>
 
-    <!-- ============ TYPOGRAPHY ============ -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- TYPOGRAPHY -->
+    <!-- ════════════════════════════════════════════════════════ -->
+
     <Style x:Key="HeroTitleStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="32" />
+        <Setter Property="FontSize" Value="20" />
         <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="LineHeight" Value="36" />
+        <Setter Property="LineHeight" Value="26" />
     </Style>
 
     <Style x:Key="PageTitleStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="28" />
-        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="FontWeight" Value="Bold" />
     </Style>
 
     <Style x:Key="PageSubtitleStyle" TargetType="TextBlock">
@@ -59,75 +71,79 @@
     </Style>
 
     <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontSize" Value="11" />
         <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="Margin" Value="0,20,0,12" />
+        <Setter Property="Foreground" Value="{ThemeResource TextFillColorTertiaryBrush}" />
+        <Setter Property="CharacterSpacing" Value="60" />
+        <Setter Property="Margin" Value="0,16,0,10" />
     </Style>
 
     <Style x:Key="CardTitleStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
     <Style x:Key="CaptionUppercaseStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontSize" Value="10" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{ThemeResource TextFillColorTertiaryBrush}" />
         <Setter Property="CharacterSpacing" Value="80" />
     </Style>
 
-    <!-- ============ CARD STYLES ============ -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- CARD STYLES -->
+    <!-- ════════════════════════════════════════════════════════ -->
+
     <Style x:Key="PremiumCardStyle" TargetType="Border">
-        <Setter Property="Background" Value="{ThemeResource LayerFillColorDefaultBrush}" />
+        <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
         <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="CornerRadius" Value="8" />
-        <Setter Property="Padding" Value="20" />
-    </Style>
-
-    <Style x:Key="HeroCardStyle" TargetType="Border">
-        <Setter Property="Background" Value="{ThemeResource LayerFillColorDefaultBrush}" />
-        <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="CornerRadius" Value="12" />
-        <Setter Property="Padding" Value="32" />
-    </Style>
-
-    <!-- Interactive card with hover effect -->
-    <Style x:Key="InteractiveCardStyle" TargetType="Border">
-        <Setter Property="Background" Value="{ThemeResource LayerFillColorDefaultBrush}" />
-        <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="CornerRadius" Value="10" />
         <Setter Property="Padding" Value="16" />
     </Style>
 
-    <!-- ============ BUTTON STYLES ============ -->
+    <Style x:Key="HeroCardStyle" TargetType="Border">
+        <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="Padding" Value="24" />
+    </Style>
+
+    <Style x:Key="InteractiveCardStyle" TargetType="Border">
+        <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="14" />
+    </Style>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- BUTTON STYLES -->
+    <!-- ════════════════════════════════════════════════════════ -->
+
     <Style x:Key="PremiumPrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
         <Setter Property="Padding" Value="20,10" />
-        <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="CornerRadius" Value="4" />
-        <Setter Property="MinHeight" Value="36" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="MinHeight" Value="40" />
     </Style>
 
     <Style x:Key="PremiumButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
         <Setter Property="Padding" Value="20,10" />
         <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="CornerRadius" Value="4" />
-        <Setter Property="MinHeight" Value="36" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="MinHeight" Value="40" />
     </Style>
 
-    <!-- ============ PILL / BADGE ============ -->
-    <Style x:Key="StatusPillStyle" TargetType="Border">
-        <Setter Property="CornerRadius" Value="100" />
-        <Setter Property="Padding" Value="10,4" />
-    </Style>
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- ICON CONTAINER -->
+    <!-- ════════════════════════════════════════════════════════ -->
 
-    <!-- ============ ICON CONTAINER ============ -->
     <Style x:Key="IconContainerStyle" TargetType="Border">
         <Setter Property="CornerRadius" Value="6" />
-        <Setter Property="Width" Value="32" />
-        <Setter Property="Height" Value="32" />
+        <Setter Property="Width" Value="36" />
+        <Setter Property="Height" Value="36" />
     </Style>
 
     <Style x:Key="LargeIconContainerStyle" TargetType="Border">
@@ -136,12 +152,9 @@
         <Setter Property="Height" Value="44" />
     </Style>
 
-    <!-- ============ EMPTY STATE ============ -->
-    <Style x:Key="EmptyStateContainerStyle" TargetType="StackPanel">
-        <Setter Property="Spacing" Value="12" />
-        <Setter Property="Padding" Value="40" />
-        <Setter Property="HorizontalAlignment" Value="Center" />
-    </Style>
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- EMPTY STATE -->
+    <!-- ════════════════════════════════════════════════════════ -->
 
     <Style x:Key="EmptyStateIconStyle" TargetType="FontIcon">
         <Setter Property="FontSize" Value="48" />
@@ -150,10 +163,9 @@
     </Style>
 
     <Style x:Key="EmptyStateTitleStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="16" />
-        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="Margin" Value="0,8,0,0" />
     </Style>
 
     <Style x:Key="EmptyStateSubtitleStyle" TargetType="TextBlock">
@@ -162,7 +174,7 @@
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="TextAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
-        <Setter Property="MaxWidth" Value="360" />
+        <Setter Property="MaxWidth" Value="400" />
     </Style>
 
 </ResourceDictionary>

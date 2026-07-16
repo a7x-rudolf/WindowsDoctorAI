@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml.Controls;
 using WindowsDoctorAI.Models;
+using WindowsDoctorAI.Views;
 
 namespace WindowsDoctorAI.Dialogs;
 
@@ -8,6 +9,7 @@ public sealed partial class ConfirmRepairDialog : ContentDialog
     public ConfirmRepairDialog(RepairAction action)
     {
         this.InitializeComponent();
+        ThemeService.ApplyToDialog(this);
 
         ActionNameText.Text = action.Name;
         ActionDescText.Text = action.Description;

@@ -1,0 +1,6 @@
+STEP 1: Update version numbers (csproj, about, iss, changelog)
+STEP 2: Build & test (clean → rebuild → F5 test)
+STEP 3: Publish (dotnet publish command)
+STEP 4: Build installer (ISCC.exe command)
+STEP 5: Push to GitHub (git add → commit → push)
+STEP 6: Create GitHub release (browser → upload installer → publish)

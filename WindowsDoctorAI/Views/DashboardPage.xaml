@@ -20,8 +20,8 @@
 
     <ScrollViewer Padding="32,24" HorizontalScrollBarVisibility="Disabled">
         <Grid HorizontalAlignment="Stretch">
-            <StackPanel MaxWidth="1400" Spacing="8"
-                    HorizontalAlignment="Left">
+            <StackPanel Spacing="8"
+                    HorizontalAlignment="Stretch">
 
                 <TextBlock Text="Dashboard" Style="{StaticResource PageTitleStyle}" />
             <TextBlock Text="Overview of your system's health and diagnostics"
@@ -55,7 +55,7 @@
 
                         <TextBlock Text="{x:Bind ViewModel.HealthDescription, Mode=OneWay}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   TextWrapping="Wrap" MaxWidth="500" Margin="0,0,0,8" />
+                                   Margin="0,0,0,0" />
 
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <Button Style="{StaticResource PremiumPrimaryButtonStyle}"
@@ -109,11 +109,10 @@
                                         VerticalAlignment="Center"
                                         Spacing="0">
                                 <TextBlock Text="{x:Bind ViewModel.OverallScore, Mode=OneWay}"
-                                           FontSize="42" FontWeight="Bold"
+                                           FontSize="28" FontWeight="Bold"
                                            HorizontalAlignment="Center"
                                            TextAlignment="Center"
-                                           Foreground="{x:Bind ViewModel.OverallScore, Mode=OneWay, Converter={StaticResource ScoreColor}}"
-                                           LineHeight="44" />
+                                           Foreground="{x:Bind ViewModel.OverallScore, Mode=OneWay, Converter={StaticResource ScoreColor}}" />
                                 <TextBlock Text="out of 100" FontSize="11"
                                            HorizontalAlignment="Center"
                                            Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
@@ -155,7 +154,7 @@
                         </Border>
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                             <TextBlock Text="Run Full Scan" FontWeight="SemiBold" FontSize="14" />
-                            <TextBlock Text="Complete diagnostic (~45s)" FontSize="11" Opacity="0.85" />
+                            <TextBlock Text="Complete Diagnostic" FontSize="11" Opacity="0.85" />
                         </StackPanel>
                     </Grid>
                 </Button>
@@ -313,68 +312,57 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate x:DataType="local:CategoryHealthItem">
-                        <Border Background="{ThemeResource LayerFillColorDefaultBrush}"
-                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                                BorderThickness="1" CornerRadius="8" Padding="18">
-                            <StackPanel Spacing="10">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                        <!-- Accent-bar pattern: satu indikator warna (bar kiri), bukan
+                             badge + pill + angka yang bertiga-tiga menyatakan status yang sama. -->
+                        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                                BorderThickness="1" 
+                                CornerRadius="10" Padding="14">
+                            <Grid ColumnSpacing="14">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                                    <Border Grid.Column="0" Width="32" Height="32" CornerRadius="6"
-                                            Background="{x:Bind StatusType, Converter={StaticResource StatusBg}}"
-                                            Margin="0,0,10,0">
-                                        <FontIcon Glyph="{x:Bind Glyph}" FontSize="14"
-                                                  Foreground="{x:Bind StatusType, Converter={StaticResource StatusFg}}" />
-                                    </Border>
+                                <Border Grid.Column="0" Width="3" CornerRadius="2"
+                                        Background="{x:Bind StatusType, Converter={StaticResource StatusFg}}"
+                                        VerticalAlignment="Stretch" />
 
-                                    <TextBlock Grid.Column="1" Text="{x:Bind Name}"
-                                               FontSize="14" FontWeight="SemiBold"
-                                               VerticalAlignment="Center" />
+                                <StackPanel Grid.Column="1" Spacing="8">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
 
-                                    <Border Grid.Column="2" CornerRadius="100" Padding="10,4"
-                                            Background="{x:Bind StatusType, Converter={StaticResource StatusBg}}"
-                                            VerticalAlignment="Center">
-                                        <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
-                                            <Ellipse Width="6" Height="6"
-                                                     Fill="{x:Bind StatusType, Converter={StaticResource StatusFg}}"
-                                                     VerticalAlignment="Center" />
-                                            <TextBlock Text="{x:Bind StatusLabel}"
-                                                       FontSize="11" FontWeight="SemiBold"
-                                                       Foreground="{x:Bind StatusType, Converter={StaticResource StatusFg}}"
-                                                       VerticalAlignment="Center" />
-                                        </StackPanel>
-                                    </Border>
-                                </Grid>
+                                        <FontIcon Grid.Column="0" Glyph="{x:Bind Glyph}" FontSize="15"
+                                                  Foreground="{x:Bind StatusType, Converter={StaticResource StatusFg}}"
+                                                  Margin="0,0,8,0" VerticalAlignment="Center" />
 
-                                <TextBlock Text="{x:Bind Description}" FontSize="12"
-                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                           TextWrapping="Wrap" />
+                                        <TextBlock Grid.Column="1" Text="{x:Bind Name}"
+                                                   Style="{StaticResource CardTitleStyle}"
+                                                   VerticalAlignment="Center" />
 
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="2" Text="{x:Bind Score}"
+                                                   FontSize="20" FontWeight="SemiBold"
+                                                   Foreground="{x:Bind StatusType, Converter={StaticResource StatusFg}}"
+                                                   VerticalAlignment="Center" />
+                                    </Grid>
 
-                                    <Border Grid.Column="0" Height="6" CornerRadius="3"
-                                            Background="{ThemeResource ControlFillColorTertiaryBrush}"
-                                            VerticalAlignment="Center">
-                                        <Border Height="6" CornerRadius="3"
+                                    <TextBlock Text="{x:Bind Description}" FontSize="12"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               TextWrapping="Wrap" />
+
+                                    <Border Height="4" CornerRadius="2"
+                                            Background="{ThemeResource ControlFillColorTertiaryBrush}">
+                                        <Border Height="4" CornerRadius="2"
                                                 Background="{x:Bind Score, Converter={StaticResource ScoreProgressBrush}}"
                                                 HorizontalAlignment="Left"
                                                 Width="{x:Bind Score}" />
                                     </Border>
-
-                                    <TextBlock Grid.Column="1" Text="{x:Bind Score}"
-                                               FontSize="13" FontWeight="Bold"
-                                               MinWidth="36" TextAlignment="Right"
-                                               Margin="10,0,0,0" />
-                                </Grid>
-                            </StackPanel>
+                                </StackPanel>
+                            </Grid>
                         </Border>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>

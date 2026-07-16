@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [2.0.0] - 2025-07-15 - Premium Edition
+## [2.0.1] - 2025-07-15 - Premium Edition
 
 ### 🎉 Major Release: Complete Rewrite
 
@@ -128,7 +128,7 @@ original codebase to modern .NET 8.0 and WinUI 3 with a premium Fluent Design UI
 ### Note
 Version 1.0.0 refers to the original codebase from [a7x-rudolf/WindowsDoctorAI](https://github.com/a7x-rudolf/WindowsDoctorAI).
 
-Version 2.0.0 represents a complete rewrite and modernization effort, transitioning from the original implementation to a modern WinUI 3 + .NET 8.0 architecture.
+Version 2.0.1 represents a complete rewrite and modernization effort, transitioning from the original implementation to a modern WinUI 3 + .NET 8.0 architecture.
 
 ---
 

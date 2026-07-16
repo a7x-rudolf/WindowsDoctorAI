@@ -36,7 +36,7 @@
                             <TextBlock Text="WindowsDoctorAI"
                                        FontSize="22" FontWeight="Bold"
                                        HorizontalAlignment="Center" />
-                            <TextBlock Text="Version 2.0.0"
+                            <TextBlock Text="Version 2.0.1"
                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                        HorizontalAlignment="Center" />
                             <Border Padding="10,4" CornerRadius="10"
@@ -45,19 +45,19 @@
                                 <TextBlock Text="Premium Edition" FontSize="11" FontWeight="SemiBold"
                                            Foreground="{StaticResource StatusInfoBrush}" />
                             </Border>
-                            <TextBlock Text="Version 2.0.0 - Premium Edition"
+                            <TextBlock Text="Version 2.0.1 - Premium Edition"
                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                        HorizontalAlignment="Center" />
 
                             <Border Padding="10,4" CornerRadius="10"
                                     Background="{StaticResource StatusInfoBgBrush}"
                                     HorizontalAlignment="Center" Margin="0,4,0,0">
-                                <TextBlock Text="Developed by RIDOLF WIDI ALFISA LUMBA" 
+                                <TextBlock Text="Developed by Ridolf Widi AlfISA Lumba" 
                                            FontSize="11" FontWeight="SemiBold"
                                            Foreground="{StaticResource StatusInfoBrush}" />
                             </Border>
 
-                            <TextBlock Text="© 2025 RIDOLF WIDI ALFISA LUMBA. All Rights Reserved."
+                            <TextBlock Text="© 2025 Ridolf Widi Alfisa Lumba. All Rights Reserved."
                                        FontSize="10"
                                        HorizontalAlignment="Center"
                                        Foreground="{ThemeResource TextFillColorTertiaryBrush}"

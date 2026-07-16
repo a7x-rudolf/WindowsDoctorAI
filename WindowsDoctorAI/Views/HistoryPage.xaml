@@ -37,7 +37,7 @@
 
                     <!-- Coming Soon Badge -->
                     <Border HorizontalAlignment="Center"
-                            Padding="12,5" CornerRadius="100"
+                            Padding="12,5" CornerRadius="10"
                             Background="{StaticResource StatusInfoBgBrush}">
                         <StackPanel Orientation="Horizontal" Spacing="6">
                             <FontIcon Glyph="&#xE121;" FontSize="10"

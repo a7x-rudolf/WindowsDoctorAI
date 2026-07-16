@@ -1,17 +1,17 @@
 ﻿; ═══════════════════════════════════════════════════════════════════════
 ; Windows Doctor AI - Inno Setup Installer Script
-; Author: RIDOLF WIDI ALFISA LUMBA
-; Copyright © 2025 RIDOLF WIDI ALFISA LUMBA. All Rights Reserved.
+; Author: Ridolf Widi Alfisa Lumba
+; Copyright © 2026 Ridolf Widi Alfisa Lumba. All Rights Reserved.
 ; License: MIT License
 ; ═══════════════════════════════════════════════════════════════════════
 
 #define AppName "Windows Doctor AI"
 #define AppNameShort "WindowsDoctorAI"
-#define AppVersion "2.0.0"
-#define AppPublisher "RIDOLF WIDI ALFISA LUMBA"
+#define AppVersion "2.0.1"
+#define AppPublisher "Ridolf Widi Alfisa Lumba"
 #define AppURL "https://github.com/RidolfAlfisa/WindowsDoctorAI"
 #define AppExeName "WindowsDoctorAI.exe"
-#define AppCopyright "Copyright © 2025 RIDOLF WIDI ALFISA LUMBA. All Rights Reserved."
+#define AppCopyright "Copyright © 2026 Ridolf Widi Alfisa Lumba. All Rights Reserved."
 #define AppDescription "Premium Windows System Diagnostic and Repair Tool"
 
 [Setup]
@@ -138,7 +138,7 @@ begin
   if CurStep = ssPostInstall then
   begin
     // Log installation success
-    Log('Windows Doctor AI v2.0.0 installed successfully. Developed by RIDOLF WIDI ALFISA LUMBA.');
+    Log('Windows Doctor AI v2.0.1 installed successfully. Developed by Ridolf Widi Alfisa Lumba.');
   end;
 end;
 

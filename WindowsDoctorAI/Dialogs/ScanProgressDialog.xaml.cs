@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using WindowsDoctorAI.Helpers;
 using WindowsDoctorAI.Models;
+using WindowsDoctorAI.Views;
 
 namespace WindowsDoctorAI.Dialogs;
 
@@ -27,6 +28,7 @@ public sealed partial class ScanProgressDialog : ContentDialog
     public ScanProgressDialog()
     {
         this.InitializeComponent();
+        ThemeService.ApplyToDialog(this);
         BuildCategoryRows();
         _startTime = DateTime.Now;
         this.Opened += (s, e) => { _startTime = DateTime.Now; };

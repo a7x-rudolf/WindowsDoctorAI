@@ -81,7 +81,7 @@ public sealed partial class DashboardPage : Page
             {
                 Glyph = GetGlyphForCategory(grp.Key),
                 Name = GetDisplayName(grp.Key),
-                Description = desc.Length > 80 ? desc.Substring(0, 77) + "..." : desc,
+                Description = desc.Length > 80 ? string.Concat(desc.AsSpan(0, 77), "...") : desc,
                 StatusLabel = statusLabel,
                 StatusType = statusType,
                 Score = System.Math.Round(avgScore)

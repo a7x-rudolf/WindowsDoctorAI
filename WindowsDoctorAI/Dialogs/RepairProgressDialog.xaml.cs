@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Media;
 using System;
 using WindowsDoctorAI.Helpers;
 using WindowsDoctorAI.Models;
+using WindowsDoctorAI.Views;
 
 namespace WindowsDoctorAI.Dialogs;
 
@@ -15,6 +16,7 @@ public sealed partial class RepairProgressDialog : ContentDialog
     public RepairProgressDialog(RepairAction action)
     {
         this.InitializeComponent();
+        ThemeService.ApplyToDialog(this);
         _action = action;
         SubtitleText.Text = action.Name;
     }

@@ -15,7 +15,7 @@
 
     <ScrollViewer Padding="32,24" HorizontalScrollBarVisibility="Disabled">
         <Grid HorizontalAlignment="Stretch">
-            <StackPanel MaxWidth="1600" Spacing="8" HorizontalAlignment="Left">
+            <StackPanel Spacing="8" HorizontalAlignment="Stretch">
 
                 <TextBlock Text="Repair Actions" Style="{StaticResource PageTitleStyle}" />
                 <TextBlock Text="Available fixes for detected issues"

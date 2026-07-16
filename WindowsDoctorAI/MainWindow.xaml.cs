@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Media;
 using System;
 using WindowsDoctorAI.Dialogs;
 using WindowsDoctorAI.Helpers;
+using WindowsDoctorAI.Services;
 using WindowsDoctorAI.ViewModels;
 using WindowsDoctorAI.Views;
 
@@ -18,6 +19,22 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         this.InitializeComponent();
+        // ═══════════════════════════════════════════════════════════
+        // APPLY THEME (defaults to Dark on first run, otherwise loads
+        // the user's last saved preference via ThemeService)
+        // ═══════════════════════════════════════════════════════════
+        if (this.Content is FrameworkElement root)
+        {
+            root.RequestedTheme = ThemeService.CurrentTheme;
+        }
+        UpdateThemeToggleVisual();
+
+        // ═══════════════════════════════════════════════════════════
+        // APPLY LANGUAGE (defaults to Indonesian on first run, otherwise
+        // loads the user's last saved preference via LocalizationService)
+        // ═══════════════════════════════════════════════════════════
+        ApplyLocalization();
+        UpdateLanguageToggleVisual();
 
         // Register toast host (use RootGrid from MainWindow.xaml)
         Helpers.ToastService.RegisterHost(RootGrid);
@@ -64,12 +81,13 @@ public sealed partial class MainWindow : Window
             UserNameText.Text = Environment.UserName;
             UserAvatarText.Text = string.IsNullOrEmpty(Environment.UserName)
                 ? "?" : Environment.UserName[0].ToString().ToUpper();
-            UserRoleText.Text = isAdmin ? "Elevated Session" : "Standard User";
+            UserRoleText.Text = isAdmin
+                ? LocalizationService.GetString("User_ElevatedSession")
+                : LocalizationService.GetString("User_StandardUser");
 
             if (!isAdmin)
             {
-                UserStatusIcon.Glyph = "\uE7BA";
-                UserStatusIcon.Foreground = new SolidColorBrush(ColorHelper.FromArgb(255, 183, 113, 13));
+                UserStatusIcon.Fill = new SolidColorBrush(ColorHelper.FromArgb(255, 183, 113, 13));
             }
         }
         catch { }
@@ -77,6 +95,14 @@ public sealed partial class MainWindow : Window
         // ═══════════════════════════════════════════════════════════
         // EVENT SUBSCRIPTIONS
         // ═══════════════════════════════════════════════════════════
+
+        // Keep the toggles in sync if theme/language is changed elsewhere (e.g. SettingsPage)
+        ThemeService.ThemeChanged += (_) => DispatcherQueue.TryEnqueue(UpdateThemeToggleVisual);
+        LocalizationService.LanguageChanged += (_) => DispatcherQueue.TryEnqueue(() =>
+        {
+            ApplyLocalization();
+            UpdateLanguageToggleVisual();
+        });
 
         // Status bar listener
         ViewModel.PropertyChanged += ViewModel_PropertyChanged;
@@ -156,7 +182,9 @@ public sealed partial class MainWindow : Window
 
     private void UpdateAdminBadge(bool isAdmin)
     {
-        AdminStatusText.Text = isAdmin ? "Administrator" : "Standard User (Limited)";
+        AdminStatusText.Text = isAdmin
+            ? LocalizationService.GetString("Status_Administrator")
+            : LocalizationService.GetString("Status_StandardUserLimited");
         AdminStatusText.Foreground = isAdmin
             ? new SolidColorBrush(ColorHelper.FromArgb(255, 15, 123, 15))
             : new SolidColorBrush(ColorHelper.FromArgb(255, 183, 113, 13));
@@ -180,7 +208,9 @@ public sealed partial class MainWindow : Window
                     break;
                 case nameof(ViewModel.HasScanResults):
                     if (ViewModel.HasScanResults)
-                        LastScanText.Text = $"Last scan: {DateTime.Now:HH:mm}";
+                        LastScanText.Text = string.Format(
+                            LocalizationService.GetString("Status_LastScan"),
+                            DateTime.Now.ToString("HH:mm"));
                     break;
             }
         });
@@ -208,5 +238,82 @@ public sealed partial class MainWindow : Window
             case "settings": ContentFrame.Navigate(typeof(SettingsPage), ViewModel); break;
             case "about": ContentFrame.Navigate(typeof(AboutPage), ViewModel); break;
         }
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // THEME TOGGLE
+    // ═══════════════════════════════════════════════════════════
+    private void ThemeToggleButton_Click(object sender, RoutedEventArgs e)
+    {
+        ThemeService.ToggleTheme(this.Content?.XamlRoot);
+        UpdateThemeToggleVisual();
+    }
+
+    private void UpdateThemeToggleVisual()
+    {
+        bool isDark = ThemeService.CurrentTheme == ElementTheme.Dark;
+
+        // Show the action the button performs (tap to switch TO the other mode)
+        ThemeToggleIcon.Glyph = isDark ? "\uE706" : "\uE708"; // Sunny / QuietHours(moon)
+        ThemeToggleLabel.Text = isDark ? "Light" : "Dark";
+        ToolTipService.SetToolTip(ThemeToggleButton, LocalizationService.GetString("Theme_ToggleTooltip"));
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // LANGUAGE TOGGLE
+    // ═══════════════════════════════════════════════════════════
+    private void LangEnButton_Click(object sender, RoutedEventArgs e) => SetLanguage(LocalizationService.English);
+
+    private void LangIdButton_Click(object sender, RoutedEventArgs e) => SetLanguage(LocalizationService.Indonesian);
+
+    private void SetLanguage(string code)
+    {
+        LocalizationService.SetLanguage(code);
+        ApplyLocalization();
+        UpdateLanguageToggleVisual();
+    }
+
+    private void UpdateLanguageToggleVisual()
+    {
+        bool isEnglish = LocalizationService.CurrentLanguage == LocalizationService.English;
+
+        var activeBrush = App.Current.Resources["AccentButtonBackground"] as Brush
+                           ?? new SolidColorBrush(ColorHelper.FromArgb(255, 0, 120, 212));
+        var inactiveBrush = new SolidColorBrush(Colors.Transparent);
+
+        LangEnButton.Background = isEnglish ? activeBrush : inactiveBrush;
+        LangIdButton.Background = !isEnglish ? activeBrush : inactiveBrush;
+
+        ToolTipService.SetToolTip(LangEnButton, LocalizationService.GetString("Language_ToggleTooltip"));
+        ToolTipService.SetToolTip(LangIdButton, LocalizationService.GetString("Language_ToggleTooltip"));
+    }
+
+    private void ApplyLocalization()
+    {
+        HeaderDiagnostics.Content = LocalizationService.GetString("Nav_Diagnostics");
+        NavDashboard.Content = LocalizationService.GetString("Nav_Dashboard");
+        NavScan.Content = LocalizationService.GetString("Nav_Scan");
+        NavResults.Content = LocalizationService.GetString("Nav_Results");
+        NavRepair.Content = LocalizationService.GetString("Nav_Repair");
+
+        HeaderInsights.Content = LocalizationService.GetString("Nav_Insights");
+        NavHistory.Content = LocalizationService.GetString("Nav_History");
+        NavSystem.Content = LocalizationService.GetString("Nav_System");
+
+        NavSettings.Content = LocalizationService.GetString("Nav_Settings");
+        NavAbout.Content = LocalizationService.GetString("Nav_About");
+
+        StatusText.Text = LocalizationService.GetString("Status_Ready");
+        LastScanText.Text = ViewModel.HasScanResults
+            ? string.Format(LocalizationService.GetString("Status_LastScan"), DateTime.Now.ToString("HH:mm"))
+            : LocalizationService.GetString("Status_LastScanNever");
+
+        bool isAdmin = AdminHelper.IsRunningAsAdmin();
+        AdminStatusText.Text = isAdmin
+            ? LocalizationService.GetString("Status_Administrator")
+            : LocalizationService.GetString("Status_StandardUserLimited");
+        UserRoleText.Text = isAdmin
+            ? LocalizationService.GetString("User_ElevatedSession")
+            : LocalizationService.GetString("User_StandardUser");
     }
 }

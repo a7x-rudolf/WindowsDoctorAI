@@ -23,12 +23,12 @@
 		<AssemblyCompany>RIDOLF WIDI ALFISA LUMBA</AssemblyCompany>
 		<AssemblyProduct>WindowsDoctorAI</AssemblyProduct>
 		<AssemblyCopyright>Copyright © 2025 RIDOLF WIDI ALFISA LUMBA. All Rights Reserved.</AssemblyCopyright>
-		<AssemblyVersion>2.0.0.0</AssemblyVersion>
-		<FileVersion>2.0.0.0</FileVersion>
-		<Version>2.0.0</Version>
+		<AssemblyVersion>2.0.1.0</AssemblyVersion>
+		<FileVersion>2.0.1.0</FileVersion>
+		<Version>2.0.1</Version>
 		<Product>WindowsDoctorAI - Premium Edition</Product>
-		<Authors>RIDOLF WIDI ALFISA LUMBA</Authors>
-		<Copyright>Copyright © 2025 RIDOLF WIDI ALFISA LUMBA. All Rights Reserved.</Copyright>
+		<Authors>Ridolf Widi Alfisa Lumba</Authors>
+		<Copyright>Copyright © 2025 Ridolf Widi Alfisa Lumba. All Rights Reserved.</Copyright>
 
 		<!-- ============ RID COMPATIBILITY ============ -->
 		<RuntimeIdentifierCompatibilityVersion>net6.0</RuntimeIdentifierCompatibilityVersion>
@@ -41,6 +41,7 @@
 
 		<!-- ============ SUPPRESS NOISE ============ -->
 		<NoWarn>$(NoWarn);NETSDK1206;CsWinRT1028;CsWinRT1029;CsWinRT1030;CA1822;CA1416;IDE0028;IDE0042;IDE0090;WMC0011</NoWarn>
+		<NoWarn>$(NoWarn);WMC0001</NoWarn>
 
 		<AnalysisLevel>latest</AnalysisLevel>
 		<EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>

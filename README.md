@@ -2,7 +2,7 @@
 
 # 🩺 WindowsDoctorAI
 
-**Comprehensive Windows System Diagnostic & Repair Tool**
+**Windows Diagnostic & Repair Tool**
 
 [![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](CHANGELOG.md)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D4.svg)]()
@@ -25,7 +25,7 @@
 
 **RIDOLF WIDI ALFISA LUMBA**
 
-*Sole Developer, Architect & Copyright Holder*
+*Solo Developer, Architect & Copyright Holder*
 
 Copyright © 2025 RIDOLF WIDI ALFISA LUMBA. All Rights Reserved.
 Licensed under the [MIT License](LICENSE).
@@ -193,7 +193,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 ## 🙏 Credits & Acknowledgments
 
 ### Development
-- **Sole Developer & Architect**: **RIDOLF WIDI ALFISA LUMBA**
+- **Solo Developer & Architect**: **RIDOLF WIDI ALFISA LUMBA**
 - **Copyright Owner**: RIDOLF WIDI ALFISA LUMBA © 2025
 - **Project Type**: Independent Solo Developer Project
 
@@ -207,7 +207,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 - **Original Concept**: [a7x-rudolf/WindowsDoctorAI](https://github.com/a7x-rudolf/WindowsDoctorAI) — This project is a complete rewrite and modernization## 🙏 Credits & Acknowledgments
 
 ### Development
-- **Sole Developer & Architect**: **RIDOLF WIDI ALFISA LUMBA**
+- **Solo Developer & Architect**: **RIDOLF WIDI ALFISA LUMBA**
 - **Copyright Owner**: RIDOLF WIDI ALFISA LUMBA © 2025
 - **Project Type**: Independent Solo Developer Project
 

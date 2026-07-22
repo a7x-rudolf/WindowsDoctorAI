@@ -1,0 +1,246 @@
+From d74bca794895ccb040438eb31b641f31b7566401 Mon Sep 17 00:00:00 2001
+From: RIDOLF WIDI ALFISA LUMBA <175489290+a7x-rudolf@users.noreply.github.com>
+Date: Thu, 16 Jul 2026 19:11:46 +0000
+Subject: [PATCH] docs: sync version references to v2.0.1 across README,
+ CHANGELOG, and Docs
+
+- README badge/footer: 2.0.0 -> 2.0.1
+- CHANGELOG: split v2.0.1 into its own entry (was duplicating v2.0.0 content),
+  documenting the actual delta (converters, LocalizationService, AppSettingsStore,
+  dark mode redesign); v2.0.0 rewrite content kept under its own heading
+- PROJECT_CHARTER: roadmap now shows v2.0.1 as current, moved delivered items
+  out of the v2.1.0 target list
+- ARCHITECTURE: settings persistence & dark mode audit moved from 'planned'
+  to 'delivered in v2.0.1'; distribution section corrected to mention the
+  existing Inno Setup installer
+- FAQ: Q35 (dark mode) updated to reflect the v2.0.1 fix instead of saying
+  it's still planned for v2.1.0
+---
+ CHANGELOG.md                         | 31 ++++++++++++++++++++++++----
+ Docs/00-Overview/DEVELOPER_INFO.md   |  3 ++-
+ Docs/00-Overview/PROJECT_CHARTER.md  | 12 ++++++++---
+ Docs/01-Architecture/ARCHITECTURE.md | 16 ++++++++------
+ Docs/08-Operations/FAQ.md            |  5 +++--
+ README.md                            |  4 ++--
+ 6 files changed, 53 insertions(+), 18 deletions(-)
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 4501ef0..38bd61c 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -23,13 +23,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
+ ### Planned
+ - Scan history persistence (SQLite)
+ - Parallel scan execution
+-- Dark mode visual audit
+ - Unit test coverage
+ - MSIX packaging for Microsoft Store
+ 
+ ---
+ 
+-## [2.0.1] - 2025-07-15 - Premium Edition
++## [2.0.1] - 2025-07-16 - Dark Mode Release
++
++### ✨ Added
++- `Converters/RiskLevelToBackgroundConverter.cs` — visual background indicator for scan result risk levels
++- `Converters/RiskLevelToForegroundConverter.cs` — visual foreground indicator for scan result risk levels
++- `Converters/ScoreToFractionConverter.cs` — health score display as fraction
++- `Helpers/AppSettingsStore.cs` — persistent user preferences storage
++- `Services/LocalizationService.cs` — multi-language support foundation (EN/ID)
++- `Docs/07-Deployment/Ringkasan Prosedur (Cheat Sheet).md`
++- `Docs/07-Deployment/UPDATE_RELEASE_PROCEDURE.md`
++
++### 🎨 Changed
++- Dashboard UI redesign with full dark mode support and improved visual hierarchy (resolves the dark mode visual audit item tracked since v2.0.0)
++- Category cards layout: fixed responsive grid for better UX (`DashboardPage.xaml`/`.xaml.cs`)
++- `SettingsPage.xaml` integrated with `ThemeService`
++- `AppStyles.xaml` updated for dark mode styling
++- `WindowsDoctorAI-Setup.iss` installer script updates
++
++### 🐛 Fixed
++- Dark mode: known visual inconsistencies from v2.0.0 audited and resolved
++
++---
++
++## [2.0.0] - 2025-07-14 - Premium Edition
+ 
+ ### 🎉 Major Release: Complete Rewrite
+ 
+@@ -128,7 +150,7 @@ original codebase to modern .NET 8.0 and WinUI 3 with a premium Fluent Design UI
+ ### Note
+ Version 1.0.0 refers to the original codebase from [a7x-rudolf/WindowsDoctorAI](https://github.com/a7x-rudolf/WindowsDoctorAI).
+ 
+-Version 2.0.1 represents a complete rewrite and modernization effort, transitioning from the original implementation to a modern WinUI 3 + .NET 8.0 architecture.
++Version 2.0.0 represents a complete rewrite and modernization effort, transitioning from the original implementation to a modern WinUI 3 + .NET 8.0 architecture. Version 2.0.1 followed shortly after with a dark mode UI pass and related fixes.
+ 
+ ---
+ 
+@@ -150,6 +172,7 @@ This project follows [Semantic Versioning](https://semver.org/):
+ 
+ ---
+ 
+-[Unreleased]: ../../compare/v2.0.0...HEAD
++[Unreleased]: ../../compare/v2.0.1...HEAD
++[2.0.1]: ../../releases/tag/v2.0.1
+ [2.0.0]: ../../releases/tag/v2.0.0
+ [1.0.0]: https://github.com/a7x-rudolf/WindowsDoctorAI
+\ No newline at end of file
+diff --git a/Docs/00-Overview/DEVELOPER_INFO.md b/Docs/00-Overview/DEVELOPER_INFO.md
+index c976c07..2fa027b 100644
+--- a/Docs/00-Overview/DEVELOPER_INFO.md
++++ b/Docs/00-Overview/DEVELOPER_INFO.md
+@@ -80,7 +80,8 @@ Meskipun copyright dimiliki oleh RIDOLF WIDI ALFISA LUMBA, software ini **dilise
+ | **Development Start** | 2025 | Mulai coding dengan WinUI 3 + .NET 8 |
+ | **UI/UX Design** | 2025 | Fluent Design implementation |
+ | **v2.0.0 Release** | Juli 2025 | Public release Premium Edition |
+-| **v2.1.0 Planned** | Q4 2025 | Scan history, dark mode audit, code signing |
++| **v2.0.1 Release** | Juli 2025 | Dark mode redesign, localization foundation, app settings store |
++| **v2.1.0 Planned** | Q4 2025 | Scan history, code signing |
+ | **v2.2.0 Planned** | Q1 2026 | Parallel scans, unit tests, DI migration |
+ | **v3.0.0 Aspirational** | Future | AI recommendations, MSIX, i18n |
+ 
+diff --git a/Docs/00-Overview/PROJECT_CHARTER.md b/Docs/00-Overview/PROJECT_CHARTER.md
+index 5b011c3..f35af43 100644
+--- a/Docs/00-Overview/PROJECT_CHARTER.md
++++ b/Docs/00-Overview/PROJECT_CHARTER.md
+@@ -234,16 +234,22 @@ Proyek ini dianggap **sukses** apabila memenuhi kriteria berikut:
+ 
+ ## 13. Roadmap Singkat
+ 
+-### v2.0.0 (Current — Juli 2025)
++### v2.0.0 (Juli 2025)
+ - ✅ Complete rewrite ke WinUI 3
+ - ✅ 7 diagnostic categories
+ - ✅ 30+ repair actions
+ - ✅ Premium UI dengan Fluent Design
+ - ✅ P0 documentation
+ 
++### v2.0.1 (Current — Juli 2025)
++- ✅ Dark mode visual audit & Dashboard UI redesign
++- ✅ Risk level converters (background/foreground/score)
++- ✅ Localization service foundation (EN/ID)
++- ✅ Persistent app settings store
++- ✅ Installer script updates
++
+ ### v2.1.0 (Q4 2025 — Target)
+ - Scan history persistence (SQLite)
+-- Dark mode visual audit
+ - Code signing certificate
+ - README/CHANGELOG improvements
+ - P1 documentation
+@@ -257,7 +263,7 @@ Proyek ini dianggap **sukses** apabila memenuhi kriteria berikut:
+ ### v3.0.0 (Future — Aspirational)
+ - AI-powered recommendations
+ - MSIX packaging + Microsoft Store
+-- Multi-language support (i18n)
++- Full multi-language support (i18n) built on the v2.0.1 localization foundation
+ - Cloud sync (optional)
+ 
+ ---
+diff --git a/Docs/01-Architecture/ARCHITECTURE.md b/Docs/01-Architecture/ARCHITECTURE.md
+index 852490b..cb706bf 100644
+--- a/Docs/01-Architecture/ARCHITECTURE.md
++++ b/Docs/01-Architecture/ARCHITECTURE.md
+@@ -735,7 +735,7 @@ User Input → UI → ViewModel (safe)
+ 
+ ## 11. Testing Strategy
+ 
+-### 11.1 Current State (v2.0.0)
++### 11.1 Current State (v2.0.1)
+ 
+ - ❌ **No Unit Tests** (planned v2.1.0)
+ - ✅ **Manual Testing** performed by developer
+@@ -753,10 +753,10 @@ User Input → UI → ViewModel (safe)
+ 
+ ### 12.1 Distribution Format
+ 
+-**Current (v2.0.0):**
++**Current (v2.0.1):**
+ - **Self-Contained EXE** dengan .NET 8 runtime bundled
+ - Ukuran: ~150 MB (compressed) / ~250 MB (extracted)
+-- Portable (no installer)
++- Distributed via Inno Setup installer (`WindowsDoctorAI-Setup-x64.exe`) with shortcuts & uninstaller
+ 
+ **Future (v3.0.0+):**
+ - **MSIX Package** untuk Microsoft Store
+@@ -773,11 +773,14 @@ User Input → UI → ViewModel (safe)
+ 
+ ## 13. Future Architecture Evolution
+ 
++### 13.0 v2.0.1 Delivered (previously planned here)
++
++- ✅ **Settings Persistence** — delivered via `AppSettingsStore` (Helpers)
++- ✅ **Dark Mode Audit** — Dashboard UI redesigned with full dark mode support
++
+ ### 13.1 v2.1.0 Planned Changes
+ 
+ - **Scan History Persistence** dengan SQLite
+-- **Settings Persistence** dengan ApplicationData.LocalSettings
+-- **Dark Mode Audit** untuk visual consistency
+ 
+ ### 13.2 v2.2.0 Planned Changes
+ 
+@@ -798,12 +801,13 @@ User Input → UI → ViewModel (safe)
+ | Version | Date | Changes | Author |
+ |---------|------|---------|--------|
+ | 1.0 | 15 Juli 2025 | Initial architecture documentation | RIDOLF WIDI ALFISA LUMBA |
++| 1.1 | 17 Juli 2025 | Updated for v2.0.1: settings persistence & dark mode audit moved from planned to delivered, installer distribution corrected | RIDOLF WIDI ALFISA LUMBA |
+ 
+ ---
+ 
+ <div align="center">
+ 
+-**Architecture Documentation for WindowsDoctorAI v2.0.0**
++**Architecture Documentation for WindowsDoctorAI v2.0.1**
+ 
+ Authored by **RIDOLF WIDI ALFISA LUMBA**
+ 
+diff --git a/Docs/08-Operations/FAQ.md b/Docs/08-Operations/FAQ.md
+index b78bde1..48ce62d 100644
+--- a/Docs/08-Operations/FAQ.md
++++ b/Docs/08-Operations/FAQ.md
+@@ -547,9 +547,9 @@ Screenshot bug dan report ke GitHub Issues sangat membantu debug.
+ 
+ ### Q35: Dark mode tidak berfungsi dengan baik
+ 
+-**A:** **Diketahui issue** di v2.0.0. Dark mode functional tapi beberapa elemen visual belum ter-audit optimal. Fix planned di **v2.1.0**.
++**A:** Ini adalah **known issue di v2.0.0** (dark mode functional tapi beberapa elemen visual belum ter-audit optimal). Sudah **diperbaiki di v2.0.1** — Dashboard UI di-redesign dengan dukungan dark mode penuh dan hierarki visual yang lebih baik.
+ 
+-Workaround: Gunakan Light theme untuk pengalaman terbaik di v2.0.0.
++Kalau kamu masih menemukan elemen yang belum konsisten di dark mode setelah update ke v2.0.1, silakan report ke GitHub Issues.
+ 
+ ---
+ 
+@@ -647,6 +647,7 @@ Jika pertanyaan Anda tidak terjawab di FAQ ini:
+ | Version | Date | Changes | Author |
+ |---------|------|---------|--------|
+ | 1.0 | 15 Juli 2025 | Initial FAQ for WindowsDoctorAI v2.0.0 | **RIDOLF WIDI ALFISA LUMBA** |
++| 1.1 | 17 Juli 2025 | Updated Q35 (dark mode) to reflect fix shipped in v2.0.1 | **RIDOLF WIDI ALFISA LUMBA** |
+ 
+ ---
+ 
+diff --git a/README.md b/README.md
+index b180055..41aa4fd 100644
+--- a/README.md
++++ b/README.md
+@@ -4,7 +4,7 @@
+ 
+ **Windows Diagnostic & Repair Tool**
+ 
+-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](CHANGELOG.md)
++[![Version](https://img.shields.io/badge/version-2.0.1-blue.svg)](CHANGELOG.md)
+ [![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D4.svg)]()
+ [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4.svg)]()
+ [![WinUI 3](https://img.shields.io/badge/WinUI-3.0-purple.svg)]()
+@@ -232,7 +232,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
+ 
+ **Made with ❤️ by RIDOLF WIDI ALFISA LUMBA**
+ 
+-*Version 2.0.0 - Premium Edition*
++*Version 2.0.1 - Premium Edition*
+ 
+ *Copyright © 2025 RIDOLF WIDI ALFISA LUMBA. All Rights Reserved.*
+ 
+-- 
+2.43.0
+

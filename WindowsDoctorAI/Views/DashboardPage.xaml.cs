@@ -129,7 +129,44 @@ public sealed partial class DashboardPage : Page
 
     private async void FixAll_Click(object sender, RoutedEventArgs e)
     {
-        if (ViewModel?.ExecuteAllRepairsCommand.CanExecute(null) == true)
+        if (ViewModel?.ExecuteAllRepairsCommand.CanExecute(null) != true)
+            return;
+
+        var safeRepairs = ViewModel.PendingRepairs
+            .Where(r => r.ActionType == RepairActionType.Automatic &&
+                       (r.RiskLevel == "Low" || r.RiskLevel == "None") &&
+                        r.Status == RepairStatus.Pending)
+            .ToList();
+
+        if (safeRepairs.Count == 0)
+        {
+            var dialog = new ContentDialog
+            {
+                Title = "No Repairs Available",
+                Content = "There are no safe automatic repairs available at this time. Please review the results manually.",
+                CloseButtonText = "OK",
+                XamlRoot = this.XamlRoot
+            };
+            await dialog.ShowAsync();
+            return;
+        }
+
+        var confirmDialog = new ContentDialog
+        {
+            Title = "Execute Safe Repairs",
+            Content = $"This will execute {safeRepairs.Count} safe automatic repair(s) with low or no risk.\n\n" +
+                      $"Repairs to be executed:\n" +
+                      string.Join("\n", safeRepairs.Select(r => $"• {r.Name}")),
+            PrimaryButtonText = "Execute All",
+            CloseButtonText = "Cancel",
+            DefaultButton = ContentDialogButton.Primary,
+            XamlRoot = this.XamlRoot
+        };
+
+        var result = await confirmDialog.ShowAsync();
+        if (result == ContentDialogResult.Primary)
+        {
             await ViewModel.ExecuteAllRepairsCommand.ExecuteAsync(null);
+        }
     }
 }

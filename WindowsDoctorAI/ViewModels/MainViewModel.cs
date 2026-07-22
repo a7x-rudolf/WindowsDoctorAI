@@ -17,8 +17,14 @@ public partial class MainViewModel : BaseViewModel
     private readonly RepairService _repair = new();
     private readonly SystemInfoService _sysInfo = new();
     private readonly ReportExportService _report = new();
+    private readonly ScanHistoryService _history = new();
     private CancellationTokenSource? _cts;
     private SystemHealthScore? _lastScore;
+
+    [ObservableProperty] private bool _isHistoryLoading;
+    [ObservableProperty] private ScanHistoryDetail? _selectedHistoryDetail;
+
+    public ObservableCollection<ScanHistoryEntry> ScanHistory { get; } = new();
 
     [ObservableProperty] private double _overallScore;
     [ObservableProperty] private string _healthRating = "Not Scanned";
@@ -37,8 +43,19 @@ public partial class MainViewModel : BaseViewModel
     public ObservableCollection<RepairAction> PendingRepairs { get; } = new();
     public Dictionary<string, string> SystemInfo { get; private set; } = new();
 
+    // ===== Helper properties for UI =====
+    public bool HasSafeRepairs => PendingRepairs.Any(r =>
+        r.ActionType == RepairActionType.Automatic &&
+        (r.RiskLevel == "Low" || r.RiskLevel == "None") &&
+        r.Status == RepairStatus.Pending);
+
+    public int SafeRepairCount => PendingRepairs.Count(r =>
+        r.ActionType == RepairActionType.Automatic &&
+        (r.RiskLevel == "Low" || r.RiskLevel == "None") &&
+        r.Status == RepairStatus.Pending);
+
     // ===== Events for UI to hook into for dialogs =====
-    public event Action? ScanRequested;             // UI opens ScanProgressDialog
+    public event Action? ScanRequested;
     public event Action<string>? CategoryStarted;
     public event Action<string>? CategoryCompleted;
     public event Action<int>? ProgressUpdated;
@@ -47,7 +64,7 @@ public partial class MainViewModel : BaseViewModel
     public event Action? ScanCancelled;
     public event Action<string>? ScanFailed;
 
-    public event Action<RepairAction>? RepairStarted;    // UI opens RepairProgressDialog
+    public event Action<RepairAction?>? RepairStarted;
     public event Action<RepairAction, string>? RepairProgress;
     public event Action<RepairAction, bool>? RepairCompleted;
 
@@ -87,7 +104,6 @@ public partial class MainViewModel : BaseViewModel
         PendingRepairs.Clear();
         StatusMessage = "Starting diagnostic scan...";
 
-        // Fire event to open dialog
         ScanRequested?.Invoke();
 
         _cts = new CancellationTokenSource();
@@ -96,7 +112,6 @@ public partial class MainViewModel : BaseViewModel
         {
             SystemInfo = _sysInfo.GetSystemInfo();
 
-            // Track category completions
             string? lastCat = null;
             _engine.OnCategoryStarted += CatStartHandler;
 
@@ -111,7 +126,6 @@ public partial class MainViewModel : BaseViewModel
 
             _engine.OnCategoryStarted -= CatStartHandler;
 
-            // Complete last category
             if (lastCat != null)
                 CategoryCompleted?.Invoke(lastCat);
 
@@ -137,6 +151,16 @@ public partial class MainViewModel : BaseViewModel
             StatusMessage = $"Scan complete. Found {TotalIssues} issue(s).";
 
             ScanCompleted?.Invoke(score);
+
+            try
+            {
+                await _history.SaveScanAsync(results, score);
+                await LoadHistoryAsync();
+            }
+            catch
+            {
+                // Persisting history should never block or crash the scan flow.
+            }
         }
         catch (OperationCanceledException)
         {
@@ -184,21 +208,99 @@ public partial class MainViewModel : BaseViewModel
     [RelayCommand]
     private async Task ExecuteAllRepairsAsync()
     {
-        if (PendingRepairs.Count == 0) return;
-        IsBusy = true;
-        int ok = 0, fail = 0;
+        if (PendingRepairs.Count == 0)
+        {
+            StatusMessage = "No pending repairs to execute.";
+            RepairStarted?.Invoke(default!);
+            RepairCompleted?.Invoke(default!, false);
+            return;
+        }
+
         var safe = PendingRepairs
             .Where(r => r.ActionType == RepairActionType.Automatic &&
                        (r.RiskLevel == "Low" || r.RiskLevel == "None") &&
-                        r.Status == RepairStatus.Pending).ToList();
+                        r.Status == RepairStatus.Pending)
+            .ToList();
+
+        if (safe.Count == 0)
+        {
+            StatusMessage = "No safe automatic repairs available. Please review manually.";
+            RepairStarted?.Invoke(default!);
+            RepairCompleted?.Invoke(default!, false);
+            return;
+        }
+
+        IsBusy = true;
+        int ok = 0, fail = 0;
+
+        var batchAction = new RepairAction
+        {
+            Name = $"Batch Repair ({safe.Count} items)",
+            Description = $"Executing {safe.Count} safe automatic repairs",
+            ActionType = RepairActionType.Automatic,
+            RiskLevel = "Low",
+            Status = RepairStatus.Pending,
+            ResultMessage = $"Starting batch repair of {safe.Count} items"
+        };
+
+        RepairStarted?.Invoke(batchAction);
 
         StatusMessage = $"Executing {safe.Count} safe repairs...";
+
+        for (int i = 0; i < safe.Count; i++)
+        {
+            var a = safe[i];
+            try
+            {
+                RepairProgress?.Invoke(a, $"({i + 1}/{safe.Count}) {a.Name}...");
+
+                if (await _repair.ExecuteAsync(a))
+                {
+                    ok++;
+                    a.Status = RepairStatus.Completed;
+                    a.ResultMessage = "Success";
+                    RepairCompleted?.Invoke(a, true);
+                }
+                else
+                {
+                    fail++;
+                    a.Status = RepairStatus.Failed;
+                    a.ResultMessage = "Failed to execute";
+                    RepairCompleted?.Invoke(a, false);
+                }
+            }
+            catch (Exception ex)
+            {
+                fail++;
+                a.Status = RepairStatus.Failed;
+                a.ResultMessage = ex.Message;
+                StatusMessage = $"Error: {ex.Message}";
+                RepairCompleted?.Invoke(a, false);
+            }
+        }
+
         foreach (var a in safe)
         {
-            try { if (await _repair.ExecuteAsync(a)) ok++; else fail++; }
-            catch { fail++; }
+            if (a.Status == RepairStatus.Pending)
+            {
+                a.Status = RepairStatus.Completed;
+                a.ResultMessage = "Completed";
+            }
         }
+
         StatusMessage = $"Done. Success: {ok}, Failed: {fail}";
+
+        var completedAction = new RepairAction
+        {
+            Name = $"Batch Repair Complete",
+            Description = $"Success: {ok}, Failed: {fail}",
+            ActionType = RepairActionType.Automatic,
+            RiskLevel = "Low",
+            Status = RepairStatus.Completed,
+            ResultMessage = $"Executed {safe.Count} repairs. Success: {ok}, Failed: {fail}"
+        };
+        RepairCompleted?.Invoke(completedAction, fail == 0);
+
         IsBusy = false;
     }
 
@@ -220,5 +322,68 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception ex) { StatusMessage = $"Export error: {ex.Message}"; }
         finally { IsBusy = false; }
+    }
+
+    [RelayCommand]
+    private async Task LoadHistoryAsync()
+    {
+        IsHistoryLoading = true;
+        try
+        {
+            var entries = await _history.GetHistoryAsync();
+            ScanHistory.Clear();
+            foreach (var e in entries) ScanHistory.Add(e);
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load scan history: {ex.Message}";
+        }
+        finally { IsHistoryLoading = false; }
+    }
+
+    [RelayCommand]
+    private async Task ViewHistoryDetailAsync(ScanHistoryEntry? entry)
+    {
+        if (entry == null) return;
+        try
+        {
+            SelectedHistoryDetail = await _history.GetSessionDetailAsync(entry.SessionId);
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load scan detail: {ex.Message}";
+        }
+    }
+
+    [RelayCommand]
+    private async Task DeleteHistoryEntryAsync(ScanHistoryEntry? entry)
+    {
+        if (entry == null) return;
+        try
+        {
+            await _history.DeleteSessionAsync(entry.SessionId);
+            ScanHistory.Remove(entry);
+            if (SelectedHistoryDetail?.Session.SessionId == entry.SessionId)
+                SelectedHistoryDetail = null;
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to delete scan: {ex.Message}";
+        }
+    }
+
+    [RelayCommand]
+    private async Task ClearHistoryAsync()
+    {
+        try
+        {
+            await _history.ClearAllAsync();
+            ScanHistory.Clear();
+            SelectedHistoryDetail = null;
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to clear scan history: {ex.Message}";
+        }
     }
 }

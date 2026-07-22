@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Media;
 using System;
 using WindowsDoctorAI.Dialogs;
 using WindowsDoctorAI.Helpers;
+using WindowsDoctorAI.Models;
 using WindowsDoctorAI.Services;
 using WindowsDoctorAI.ViewModels;
 using WindowsDoctorAI.Views;
@@ -19,35 +20,21 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         this.InitializeComponent();
-        // ═══════════════════════════════════════════════════════════
-        // APPLY THEME (defaults to Dark on first run, otherwise loads
-        // the user's last saved preference via ThemeService)
-        // ═══════════════════════════════════════════════════════════
+
         if (this.Content is FrameworkElement root)
         {
             root.RequestedTheme = ThemeService.CurrentTheme;
         }
         UpdateThemeToggleVisual();
 
-        // ═══════════════════════════════════════════════════════════
-        // APPLY LANGUAGE (defaults to Indonesian on first run, otherwise
-        // loads the user's last saved preference via LocalizationService)
-        // ═══════════════════════════════════════════════════════════
         ApplyLocalization();
         UpdateLanguageToggleVisual();
 
-        // Register toast host (use RootGrid from MainWindow.xaml)
         Helpers.ToastService.RegisterHost(RootGrid);
 
-        // ═══════════════════════════════════════════════════════════
-        // WINDOW CONFIGURATION
-        // ═══════════════════════════════════════════════════════════
         this.Title = "Windows Doctor AI";
         this.AppWindow.Resize(new Windows.Graphics.SizeInt32(1400, 900));
 
-        // ═══════════════════════════════════════════════════════════
-        // SET APPLICATION ICON (Title Bar & Taskbar)
-        // ═══════════════════════════════════════════════════════════
         try
         {
             var iconPath = System.IO.Path.Combine(
@@ -61,7 +48,6 @@ public sealed partial class MainWindow : Window
             }
             else
             {
-                // Fallback: relative path
                 this.AppWindow.SetIcon("Assets\\AppIcon.ico");
             }
         }
@@ -70,9 +56,6 @@ public sealed partial class MainWindow : Window
             System.Diagnostics.Debug.WriteLine($"Icon load error: {ex.Message}");
         }
 
-        // ═══════════════════════════════════════════════════════════
-        // USER INFO & ADMIN STATUS
-        // ═══════════════════════════════════════════════════════════
         bool isAdmin = AdminHelper.IsRunningAsAdmin();
         UpdateAdminBadge(isAdmin);
 
@@ -92,11 +75,6 @@ public sealed partial class MainWindow : Window
         }
         catch { }
 
-        // ═══════════════════════════════════════════════════════════
-        // EVENT SUBSCRIPTIONS
-        // ═══════════════════════════════════════════════════════════
-
-        // Keep the toggles in sync if theme/language is changed elsewhere (e.g. SettingsPage)
         ThemeService.ThemeChanged += (_) => DispatcherQueue.TryEnqueue(UpdateThemeToggleVisual);
         LocalizationService.LanguageChanged += (_) => DispatcherQueue.TryEnqueue(() =>
         {
@@ -104,10 +82,8 @@ public sealed partial class MainWindow : Window
             UpdateLanguageToggleVisual();
         });
 
-        // Status bar listener
         ViewModel.PropertyChanged += ViewModel_PropertyChanged;
 
-        // Hook scan events for dialog
         ViewModel.ScanRequested += OnScanRequested;
         ViewModel.CategoryStarted += (c) => _currentScanDialog?.SetCategoryStarted(c);
         ViewModel.CategoryCompleted += (c) => _currentScanDialog?.SetCategoryDone(c);
@@ -117,35 +93,77 @@ public sealed partial class MainWindow : Window
         ViewModel.ScanCancelled += () => _currentScanDialog?.OnScanCancelled();
         ViewModel.ScanFailed += (msg) => _currentScanDialog?.OnScanError(msg);
 
-        // Toast notification untuk repair
-        ViewModel.RepairCompleted += (action, success) =>
-        {
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                try
-                {
-                    if (this.Content?.XamlRoot != null)
-                    {
-                        ToastService.Show(
-                            this.Content.XamlRoot,
-                            success ? ToastType.Success : ToastType.Error,
-                            success ? "Repair Completed" : "Repair Failed",
-                            success
-                                ? $"{action.Name} was executed successfully"
-                                : action.ResultMessage ?? "The repair did not complete",
-                            durationMs: 3000
-                        );
-                    }
-                }
-                catch { }
-            });
-        };
+        ViewModel.RepairStarted += OnRepairStarted;
+        ViewModel.RepairCompleted += OnRepairCompleted;
 
-        // ═══════════════════════════════════════════════════════════
-        // INITIAL NAVIGATION
-        // ═══════════════════════════════════════════════════════════
         if (NavView.MenuItems.Count > 1)
             NavView.SelectedItem = NavView.MenuItems[1];
+    }
+
+    private void OnRepairStarted(RepairAction? action)
+    {
+        DispatcherQueue.TryEnqueue(() =>
+        {
+            try
+            {
+                if (this.Content?.XamlRoot == null) return;
+
+                if (action == null)
+                {
+                    Helpers.ToastService.Show(
+                        this.Content.XamlRoot,
+                        ToastType.Info,
+                        "No Repairs Available",
+                        "No pending repairs or safe repairs available.",
+                        durationMs: 3000
+                    );
+                    return;
+                }
+
+                Helpers.ToastService.Show(
+                    this.Content.XamlRoot,
+                    ToastType.Info,
+                    "Repair Started",
+                    $"Executing: {action.Name}",
+                    durationMs: 2000
+                );
+            }
+            catch { }
+        });
+    }
+
+    private void OnRepairCompleted(RepairAction? action, bool success)
+    {
+        DispatcherQueue.TryEnqueue(() =>
+        {
+            try
+            {
+                if (this.Content?.XamlRoot == null) return;
+
+                if (action == null)
+                {
+                    Helpers.ToastService.Show(
+                        this.Content.XamlRoot,
+                        ToastType.Error,
+                        "Repair Failed",
+                        "No repair action was executed.",
+                        durationMs: 3000
+                    );
+                    return;
+                }
+
+                Helpers.ToastService.Show(
+                    this.Content.XamlRoot,
+                    success ? ToastType.Success : ToastType.Error,
+                    success ? "Repair Completed" : "Repair Failed",
+                    success
+                        ? $"{action.Name} was executed successfully"
+                        : action.ResultMessage ?? "The repair did not complete",
+                    durationMs: 3000
+                );
+            }
+            catch { }
+        });
     }
 
     private async void OnScanRequested()
@@ -160,10 +178,8 @@ public sealed partial class MainWindow : Window
             var result = await _currentScanDialog.ShowAsync();
             _currentScanDialog = null;
 
-            // If user clicked "View Results", navigate to Results
             if (result == ContentDialogResult.Primary && ViewModel.HasScanResults)
             {
-                // Safer navigation - iterate through MenuItems directly
                 foreach (var item in NavView.MenuItems)
                 {
                     if (item is NavigationViewItem nvi && nvi.Tag?.ToString() == "results")
@@ -240,9 +256,6 @@ public sealed partial class MainWindow : Window
         }
     }
 
-    // ═══════════════════════════════════════════════════════════
-    // THEME TOGGLE
-    // ═══════════════════════════════════════════════════════════
     private void ThemeToggleButton_Click(object sender, RoutedEventArgs e)
     {
         ThemeService.ToggleTheme(this.Content?.XamlRoot);
@@ -252,16 +265,11 @@ public sealed partial class MainWindow : Window
     private void UpdateThemeToggleVisual()
     {
         bool isDark = ThemeService.CurrentTheme == ElementTheme.Dark;
-
-        // Show the action the button performs (tap to switch TO the other mode)
-        ThemeToggleIcon.Glyph = isDark ? "\uE706" : "\uE708"; // Sunny / QuietHours(moon)
+        ThemeToggleIcon.Glyph = isDark ? "\uE706" : "\uE708";
         ThemeToggleLabel.Text = isDark ? "Light" : "Dark";
         ToolTipService.SetToolTip(ThemeToggleButton, LocalizationService.GetString("Theme_ToggleTooltip"));
     }
 
-    // ═══════════════════════════════════════════════════════════
-    // LANGUAGE TOGGLE
-    // ═══════════════════════════════════════════════════════════
     private void LangEnButton_Click(object sender, RoutedEventArgs e) => SetLanguage(LocalizationService.English);
 
     private void LangIdButton_Click(object sender, RoutedEventArgs e) => SetLanguage(LocalizationService.Indonesian);

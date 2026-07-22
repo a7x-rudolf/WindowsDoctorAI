@@ -335,7 +335,7 @@
                                         <TextBlock Text="WindowsDoctorAI" FontSize="18" FontWeight="Bold" />
                                         <TextBlock Text="Version 2.0.1 - Premium Edition" FontSize="13"
                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                                        <TextBlock Text="© 2026 - Ridolf Widi Alfisa Lumba"
+                                        <TextBlock Text="Â© 2026 - Ridolf Widi Alfisa Lumba"
                                                    FontSize="11"
                                                    Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
                                     </StackPanel>

@@ -24,73 +24,73 @@
                     HorizontalAlignment="Stretch">
 
                 <TextBlock Text="Dashboard" Style="{StaticResource PageTitleStyle}" />
-            <TextBlock Text="Overview of your system's health and diagnostics"
+                <TextBlock Text="Overview of your system's health and diagnostics"
                        Style="{StaticResource PageSubtitleStyle}"
                        Margin="0,0,0,20" />
 
-            <!-- HERO CARD -->
-            <Border Style="{StaticResource HeroCardStyle}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                <!-- HERO CARD -->
+                <Border Style="{StaticResource HeroCardStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Spacing="12" VerticalAlignment="Center">
-                        <Border HorizontalAlignment="Left" Padding="12,5" CornerRadius="10"
+                        <StackPanel Grid.Column="0" Spacing="12" VerticalAlignment="Center">
+                            <Border HorizontalAlignment="Left" Padding="12,5" CornerRadius="10"
                                 Background="{StaticResource StatusHealthyBgBrush}">
-                            <StackPanel Orientation="Horizontal" Spacing="6">
-                                <FontIcon Glyph="&#xE73E;" FontSize="10"
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <FontIcon Glyph="&#xE73E;" FontSize="10"
                                           Foreground="{StaticResource StatusHealthyBrush}"
                                           VerticalAlignment="Center" />
-                                <TextBlock Text="{x:Bind ViewModel.HealthRating, Mode=OneWay}"
+                                    <TextBlock Text="{x:Bind ViewModel.HealthRating, Mode=OneWay}"
                                            FontSize="12" FontWeight="SemiBold"
                                            Foreground="{StaticResource StatusHealthyBrush}"
                                            VerticalAlignment="Center" />
-                            </StackPanel>
-                        </Border>
+                                </StackPanel>
+                            </Border>
 
-                        <TextBlock Text="Your PC health at a glance"
+                            <TextBlock Text="Your PC health at a glance"
                                    Style="{StaticResource HeroTitleStyle}" />
 
-                        <TextBlock Text="{x:Bind ViewModel.HealthDescription, Mode=OneWay}"
+                            <TextBlock Text="{x:Bind ViewModel.HealthDescription, Mode=OneWay}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    Margin="0,0,0,0" />
 
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <Button Style="{StaticResource PremiumPrimaryButtonStyle}"
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button Style="{StaticResource PremiumPrimaryButtonStyle}"
                                     Click="RunScan_Click"
                                     IsEnabled="{x:Bind ViewModel.IsScanning, Mode=OneWay, Converter={StaticResource InverseBool}}">
-                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                    <FontIcon Glyph="&#xE773;" FontSize="14" />
-                                    <TextBlock Text="Run Full Scan" />
-                                </StackPanel>
-                            </Button>
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon Glyph="&#xE773;" FontSize="14" />
+                                        <TextBlock Text="Run Full Scan" />
+                                    </StackPanel>
+                                </Button>
 
-                            <Button Style="{StaticResource PremiumButtonStyle}"
+                                <Button Style="{StaticResource PremiumButtonStyle}"
                                     Click="ExportReport_Click"
                                     IsEnabled="{x:Bind ViewModel.HasScanResults, Mode=OneWay}">
-                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                    <FontIcon Glyph="&#xE8A5;" FontSize="14" />
-                                    <TextBlock Text="Export Report" />
-                                </StackPanel>
-                            </Button>
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon Glyph="&#xE8A5;" FontSize="14" />
+                                        <TextBlock Text="Export Report" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
 
-                    <!-- Score Gauge (ProgressRing) -->
-                    <Grid Grid.Column="1" Width="200" Height="200"
+                        <!-- Score Gauge (ProgressRing) -->
+                        <Grid Grid.Column="1" Width="200" Height="200"
                           VerticalAlignment="Center" Margin="20,0,0,0">
 
-                        <!-- Track ring (static circle) -->
-                        <Ellipse Width="170" Height="170"
+                            <!-- Track ring (static circle) -->
+                            <Ellipse Width="170" Height="170"
                                  Stroke="{ThemeResource ControlStrokeColorDefaultBrush}"
                                  StrokeThickness="10"
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center" />
 
-                        <!-- Determinate progress ring -->
-                        <ProgressRing Width="170" Height="170"
+                            <!-- Determinate progress ring -->
+                            <ProgressRing Width="170" Height="170"
                                       Value="{x:Bind ViewModel.OverallScore, Mode=OneWay}"
                                       Maximum="100"
                                       Minimum="0"
@@ -100,275 +100,280 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center" />
 
-                        <!-- Score text center (with clip guard) -->
-                        <Border Width="140" Height="140" CornerRadius="70"
+                            <!-- Score text center (with clip guard) -->
+                            <Border Width="140" Height="140" CornerRadius="70"
                                 Background="Transparent"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
-                            <StackPanel HorizontalAlignment="Center"
+                                <StackPanel HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Spacing="0">
-                                <TextBlock Text="{x:Bind ViewModel.OverallScore, Mode=OneWay}"
+                                    <TextBlock Text="{x:Bind ViewModel.OverallScore, Mode=OneWay}"
                                            FontSize="28" FontWeight="Bold"
                                            HorizontalAlignment="Center"
                                            TextAlignment="Center"
                                            Foreground="{x:Bind ViewModel.OverallScore, Mode=OneWay, Converter={StaticResource ScoreColor}}" />
-                                <TextBlock Text="out of 100" FontSize="11"
+                                    <TextBlock Text="out of 100" FontSize="11"
                                            HorizontalAlignment="Center"
                                            Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
-                                <TextBlock Text="{x:Bind ViewModel.OverallScore, Mode=OneWay, Converter={StaticResource ScoreRating}}"
+                                    <TextBlock Text="{x:Bind ViewModel.OverallScore, Mode=OneWay, Converter={StaticResource ScoreRating}}"
                                            FontSize="10" FontWeight="SemiBold"
                                            HorizontalAlignment="Center"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                            CharacterSpacing="80" Margin="0,4,0,0" />
-                            </StackPanel>
-                        </Border>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Border>
+                </Border>
 
-            <!-- QUICK ACTIONS -->
-            <TextBlock Text="Quick Actions" Style="{StaticResource SectionTitleStyle}" />
+                <!-- QUICK ACTIONS -->
+                <TextBlock Text="Quick Actions" Style="{StaticResource SectionTitleStyle}" />
 
-            <Grid ColumnSpacing="12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Padding="20" HorizontalAlignment="Stretch"
+                    <Button Grid.Column="0" Padding="20" HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Left"
                         Click="RunScan_Click"
                         Background="{StaticResource BrandAccentBrush}"
                         Foreground="White" BorderThickness="0" CornerRadius="8"
                         IsEnabled="{x:Bind ViewModel.IsScanning, Mode=OneWay, Converter={StaticResource InverseBool}}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0" Width="44" Height="44" CornerRadius="8"
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Width="44" Height="44" CornerRadius="8"
                                 Background="#33FFFFFF" Margin="0,0,14,0">
-                            <FontIcon Glyph="&#xE773;" FontSize="20" Foreground="White" />
-                        </Border>
-                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                            <TextBlock Text="Run Full Scan" FontWeight="SemiBold" FontSize="14" />
-                            <TextBlock Text="Complete Diagnostic" FontSize="11" Opacity="0.85" />
-                        </StackPanel>
-                    </Grid>
-                </Button>
+                                <FontIcon Glyph="&#xE773;" FontSize="20" Foreground="White" />
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="Run Full Scan" FontWeight="SemiBold" FontSize="14" />
+                                <TextBlock Text="Complete Diagnostic" FontSize="11" Opacity="0.85" />
+                            </StackPanel>
+                        </Grid>
+                    </Button>
 
-                <Button Grid.Column="1" Padding="20" HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Left"
-                        Background="{ThemeResource LayerFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1" CornerRadius="8"
-                        IsEnabled="{x:Bind ViewModel.HasScanResults, Mode=OneWay}"
-                        Click="FixAll_Click">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0" Width="44" Height="44" CornerRadius="8"
-                                Background="{StaticResource StatusInfoBgBrush}" Margin="0,0,14,0">
-                            <FontIcon Glyph="&#xE90F;" FontSize="20"
-                                      Foreground="{StaticResource StatusInfoBrush}" />
-                        </Border>
-                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                            <TextBlock Text="Fix Safe Issues" FontWeight="SemiBold" FontSize="14" />
-                            <TextBlock Text="Automated low-risk repairs" FontSize="11"
-                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                        </StackPanel>
-                    </Grid>
-                </Button>
+                    <Button Grid.Column="1" Padding="20" HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Left"
+        Background="{ThemeResource LayerFillColorDefaultBrush}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1" CornerRadius="8"
+        IsEnabled="{x:Bind ViewModel.HasSafeRepairs, Mode=OneWay}"
+        Click="FixAll_Click">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Width="44" Height="44" CornerRadius="8"
+                Background="{StaticResource StatusInfoBgBrush}" Margin="0,0,14,0">
+                                <FontIcon Glyph="&#xE90F;" FontSize="20"
+                      Foreground="{StaticResource StatusInfoBrush}" />
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock FontWeight="SemiBold" FontSize="14">
+                <Run Text="Fix Safe Issues" />
+                <Run Text=" (" />
+                <Run Text="{x:Bind ViewModel.SafeRepairCount, Mode=OneWay}" />
+                <Run Text=")" />
+                                </TextBlock>
+                                <TextBlock Text="Automated low-risk repairs" FontSize="11"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
+                        </Grid>
+                    </Button>
 
-                <Button Grid.Column="2" Padding="20" HorizontalAlignment="Stretch"
+                    <Button Grid.Column="2" Padding="20" HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Left"
                         Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1" CornerRadius="8"
                         IsEnabled="{x:Bind ViewModel.HasScanResults, Mode=OneWay}"
                         Click="ExportReport_Click">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0" Width="44" Height="44" CornerRadius="8"
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Width="44" Height="44" CornerRadius="8"
                                 Background="{StaticResource StatusInfoBgBrush}" Margin="0,0,14,0">
-                            <FontIcon Glyph="&#xE8A5;" FontSize="20"
+                                <FontIcon Glyph="&#xE8A5;" FontSize="20"
                                       Foreground="{StaticResource StatusInfoBrush}" />
-                        </Border>
-                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                            <TextBlock Text="Export Report" FontWeight="SemiBold" FontSize="14" />
-                            <TextBlock Text="HTML with full details" FontSize="11"
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="Export Report" FontWeight="SemiBold" FontSize="14" />
+                                <TextBlock Text="HTML with full details" FontSize="11"
                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                        </StackPanel>
-                    </Grid>
-                </Button>
-            </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </Button>
+                </Grid>
 
-            <!-- STATS -->
-            <TextBlock Text="Last Scan Summary" Style="{StaticResource SectionTitleStyle}"
+                <!-- STATS -->
+                <TextBlock Text="Last Scan Summary" Style="{StaticResource SectionTitleStyle}"
                        Visibility="{x:Bind ViewModel.HasScanResults, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
 
-            <Grid ColumnSpacing="12"
+                <Grid ColumnSpacing="12"
                   Visibility="{x:Bind ViewModel.HasScanResults, Mode=OneWay, Converter={StaticResource BoolToVis}}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="0"
+                    <Border Grid.Column="0"
                         Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1" CornerRadius="8" Padding="20">
-                    <StackPanel Spacing="10">
-                        <Border Width="36" Height="36" CornerRadius="6"
+                        <StackPanel Spacing="10">
+                            <Border Width="36" Height="36" CornerRadius="6"
                                 Background="{StaticResource StatusCriticalBgBrush}"
                                 HorizontalAlignment="Left">
-                            <FontIcon Glyph="&#xEA39;" FontSize="16"
+                                <FontIcon Glyph="&#xEA39;" FontSize="16"
                                       Foreground="{StaticResource StatusCriticalBrush}" />
-                        </Border>
-                        <TextBlock Text="{x:Bind ViewModel.CriticalCount, Mode=OneWay}"
+                            </Border>
+                            <TextBlock Text="{x:Bind ViewModel.CriticalCount, Mode=OneWay}"
                                    FontSize="32" FontWeight="Bold" LineHeight="32"
                                    Foreground="{StaticResource StatusCriticalBrush}" />
-                        <TextBlock Text="Critical Issues" FontSize="12"
+                            <TextBlock Text="Critical Issues" FontSize="12"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                    </StackPanel>
-                </Border>
+                        </StackPanel>
+                    </Border>
 
-                <Border Grid.Column="1"
+                    <Border Grid.Column="1"
                         Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1" CornerRadius="8" Padding="20">
-                    <StackPanel Spacing="10">
-                        <Border Width="36" Height="36" CornerRadius="6"
+                        <StackPanel Spacing="10">
+                            <Border Width="36" Height="36" CornerRadius="6"
                                 Background="{StaticResource StatusWarningBgBrush}"
                                 HorizontalAlignment="Left">
-                            <FontIcon Glyph="&#xE7BA;" FontSize="16"
+                                <FontIcon Glyph="&#xE7BA;" FontSize="16"
                                       Foreground="{StaticResource StatusWarningBrush}" />
-                        </Border>
-                        <TextBlock Text="{x:Bind ViewModel.WarningCount, Mode=OneWay}"
+                            </Border>
+                            <TextBlock Text="{x:Bind ViewModel.WarningCount, Mode=OneWay}"
                                    FontSize="32" FontWeight="Bold" LineHeight="32"
                                    Foreground="{StaticResource StatusWarningBrush}" />
-                        <TextBlock Text="Warnings" FontSize="12"
+                            <TextBlock Text="Warnings" FontSize="12"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                    </StackPanel>
-                </Border>
+                        </StackPanel>
+                    </Border>
 
-                <Border Grid.Column="2"
+                    <Border Grid.Column="2"
                         Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1" CornerRadius="8" Padding="20">
-                    <StackPanel Spacing="10">
-                        <Border Width="36" Height="36" CornerRadius="6"
+                        <StackPanel Spacing="10">
+                            <Border Width="36" Height="36" CornerRadius="6"
                                 Background="{StaticResource StatusHealthyBgBrush}"
                                 HorizontalAlignment="Left">
-                            <FontIcon Glyph="&#xE73E;" FontSize="16"
+                                <FontIcon Glyph="&#xE73E;" FontSize="16"
                                       Foreground="{StaticResource StatusHealthyBrush}" />
-                        </Border>
-                        <TextBlock Text="{x:Bind ViewModel.HealthyCount, Mode=OneWay}"
+                            </Border>
+                            <TextBlock Text="{x:Bind ViewModel.HealthyCount, Mode=OneWay}"
                                    FontSize="32" FontWeight="Bold" LineHeight="32"
                                    Foreground="{StaticResource StatusHealthyBrush}" />
-                        <TextBlock Text="Healthy Checks" FontSize="12"
+                            <TextBlock Text="Healthy Checks" FontSize="12"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                    </StackPanel>
-                </Border>
+                        </StackPanel>
+                    </Border>
 
-                <Border Grid.Column="3"
+                    <Border Grid.Column="3"
                         Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1" CornerRadius="8" Padding="20">
-                    <StackPanel Spacing="10">
-                        <Border Width="36" Height="36" CornerRadius="6"
+                        <StackPanel Spacing="10">
+                            <Border Width="36" Height="36" CornerRadius="6"
                                 Background="{StaticResource StatusInfoBgBrush}"
                                 HorizontalAlignment="Left">
-                            <FontIcon Glyph="&#xE9F9;" FontSize="16"
+                                <FontIcon Glyph="&#xE9F9;" FontSize="16"
                                       Foreground="{StaticResource StatusInfoBrush}" />
-                        </Border>
-                        <TextBlock Text="{x:Bind ViewModel.TotalIssues, Mode=OneWay}"
+                            </Border>
+                            <TextBlock Text="{x:Bind ViewModel.TotalIssues, Mode=OneWay}"
                                    FontSize="32" FontWeight="Bold" LineHeight="32"
                                    Foreground="{StaticResource StatusInfoBrush}" />
-                        <TextBlock Text="Total Issues" FontSize="12"
+                            <TextBlock Text="Total Issues" FontSize="12"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                    </StackPanel>
-                </Border>
-            </Grid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
 
-            <!-- CATEGORY HEALTH -->
-            <TextBlock Text="Health by Category" Style="{StaticResource SectionTitleStyle}"
+                <!-- CATEGORY HEALTH -->
+                <TextBlock Text="Health by Category" Style="{StaticResource SectionTitleStyle}"
                        Visibility="{x:Bind ViewModel.HasScanResults, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
 
-            <ItemsRepeater x:Name="CategoryRepeater"
+                <ItemsRepeater x:Name="CategoryRepeater"
                            Visibility="{x:Bind ViewModel.HasScanResults, Mode=OneWay, Converter={StaticResource BoolToVis}}">
-                <ItemsRepeater.Layout>
-                    <UniformGridLayout MinItemWidth="320" MinItemHeight="120"
+                    <ItemsRepeater.Layout>
+                        <UniformGridLayout MinItemWidth="320" MinItemHeight="120"
                                        MinColumnSpacing="12" MinRowSpacing="12" />
-                </ItemsRepeater.Layout>
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate x:DataType="local:CategoryHealthItem">
-                        <!-- Accent-bar pattern: satu indikator warna (bar kiri), bukan
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="local:CategoryHealthItem">
+                            <!-- Accent-bar pattern: satu indikator warna (bar kiri), bukan
                              badge + pill + angka yang bertiga-tiga menyatakan status yang sama. -->
-                        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
                                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
                                 BorderThickness="1" 
                                 CornerRadius="10" Padding="14">
-                            <Grid ColumnSpacing="14">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                                <Grid ColumnSpacing="14">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
 
-                                <Border Grid.Column="0" Width="3" CornerRadius="2"
+                                    <Border Grid.Column="0" Width="3" CornerRadius="2"
                                         Background="{x:Bind StatusType, Converter={StaticResource StatusFg}}"
                                         VerticalAlignment="Stretch" />
 
-                                <StackPanel Grid.Column="1" Spacing="8">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="1" Spacing="8">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
 
-                                        <FontIcon Grid.Column="0" Glyph="{x:Bind Glyph}" FontSize="15"
+                                            <FontIcon Grid.Column="0" Glyph="{x:Bind Glyph}" FontSize="15"
                                                   Foreground="{x:Bind StatusType, Converter={StaticResource StatusFg}}"
                                                   Margin="0,0,8,0" VerticalAlignment="Center" />
 
-                                        <TextBlock Grid.Column="1" Text="{x:Bind Name}"
+                                            <TextBlock Grid.Column="1" Text="{x:Bind Name}"
                                                    Style="{StaticResource CardTitleStyle}"
                                                    VerticalAlignment="Center" />
 
-                                        <TextBlock Grid.Column="2" Text="{x:Bind Score}"
+                                            <TextBlock Grid.Column="2" Text="{x:Bind Score}"
                                                    FontSize="20" FontWeight="SemiBold"
                                                    Foreground="{x:Bind StatusType, Converter={StaticResource StatusFg}}"
                                                    VerticalAlignment="Center" />
-                                    </Grid>
+                                        </Grid>
 
-                                    <TextBlock Text="{x:Bind Description}" FontSize="12"
+                                        <TextBlock Text="{x:Bind Description}" FontSize="12"
                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                TextWrapping="Wrap" />
 
-                                    <Border Height="4" CornerRadius="2"
-                                            Background="{ThemeResource ControlFillColorTertiaryBrush}">
                                         <Border Height="4" CornerRadius="2"
+                                            Background="{ThemeResource ControlFillColorTertiaryBrush}">
+                                            <Border Height="4" CornerRadius="2"
                                                 Background="{x:Bind Score, Converter={StaticResource ScoreProgressBrush}}"
                                                 HorizontalAlignment="Left"
                                                 Width="{x:Bind Score}" />
-                                    </Border>
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
+                                        </Border>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
 
-            <Border Height="20" />
+                <Border Height="20" />
 
             </StackPanel>
         </Grid>

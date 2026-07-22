@@ -1,7 +1,7 @@
 # 🚀 Update & Release Procedure
 
-**Document Version:** 1.0
-**Last Updated:** 15 Juli 2025
+**Document Version:** 1.1
+**Last Updated:** 16 Juli 2025
 **Author:** RIDOLF WIDI ALFISA LUMBA
 **Applies to:** WindowsDoctorAI v2.0.0+
 
@@ -25,6 +25,9 @@ Sebelum mulai proses release, pastikan:
 - [ ] Semua fitur **berfungsi** (scan, repair, export, dll)
 - [ ] **Version number** sudah di-update (lihat Step 1)
 - [ ] **CHANGELOG.md** sudah di-update dengan perubahan terbaru
+- [ ] **Internet connection stable** (untuk push ke GitHub)
+- [ ] **Git credentials valid** (token/password sudah siap)
+- [ ] **Tidak ada perubahan di remote yang belum di-pull** (cek dengan `git fetch`)
 
 ---
 
@@ -61,7 +64,7 @@ Cari baris di bagian atas file:
 Tambahkan section baru untuk versi yang akan dirilis:
 
 ```markdown
-## [2.0.1] - 2025-07-15
+## [2.0.1] - 2025-07-16
 
 ### Changed
 - (tulis perubahan di sini)
@@ -73,7 +76,15 @@ Tambahkan section baru untuk versi yang akan dirilis:
 - (tulis fitur baru di sini)
 ```
 
-### 1.5 Save Semua File
+### 1.5 Update `README.md` (Opsional)
+
+Update badge versi di bagian atas file:
+
+```markdown
+[![Version](https://img.shields.io/badge/version-2.0.1-blue.svg)](https://github.com/a7x-rudolf/WindowsDoctorAI/releases)
+```
+
+### 1.6 Save Semua File
 
 Tekan **Ctrl+Shift+S** di Visual Studio untuk save all.
 
@@ -121,13 +132,9 @@ Tekan Windows → ketik "PowerShell" → buka Windows PowerShell
 Copy-paste **seluruh command** ini:
 
 ```powershell
-cd D:\Project\WindowsDoctorAI\WindowsDoctorAI
+cd "D:\Project\WindowsDoctorAI\WindowsDoctorAI"
 
-# Clean previous publish
-Remove-Item "D:\Project\WindowsDoctorAI\Publish" -Recurse -Force -ErrorAction SilentlyContinue
-
-# Publish
-dotnet publish `
+dotnet publish "WindowsDoctorAI.csproj" `
     -c Release `
     -r win-x64 `
     -p:Platform=x64 `
@@ -138,12 +145,12 @@ dotnet publish `
     -p:EnableMsixTooling=true `
     -o "D:\Project\WindowsDoctorAI\Publish"
 
-# Verify
 if ($LASTEXITCODE -eq 0) {
-    Write-Host "PUBLISH SUKSES!" -ForegroundColor Green
+    Write-Host "✅ PUBLISH SUKSES!" -ForegroundColor Green
 } else {
-    Write-Host "PUBLISH GAGAL!" -ForegroundColor Red
+    Write-Host "❌ PUBLISH GAGAL dengan kode: $LASTEXITCODE" -ForegroundColor Red
 }
+Read-Host "Tekan Enter untuk keluar..."
 ```
 
 ### 3.3 Verify Publish
@@ -211,9 +218,80 @@ D:\Project\WindowsDoctorAI\Installer\Output\WindowsDoctorAI-v2.0.1-Setup-x64.exe
 
 ## STEP 5: Push ke GitHub Repository
 
-### 5.1 Add & Commit Perubahan
+### ⚠️ PENTING! Baca Seluruh Step 5 Sebelum Eksekusi
 
-Jalankan di PowerShell:
+Bagian ini adalah **penyebab paling umum error** saat release. Ikuti urutan dengan teliti.
+
+---
+
+### 5.0 Pre-Push: Cek Remote Changes
+
+**Sebelum melakukan push**, selalu cek apakah ada perubahan di remote yang belum Anda tarik:
+
+```powershell
+cd D:\Project\WindowsDoctorAI
+
+# Cek status remote
+git fetch origin
+git status
+```
+
+**Jika output menampilkan:**
+```
+Your branch is behind 'origin/main' by X commit(s)
+```
+
+**ARTINYA:** Ada perubahan di remote yang belum ada di lokal. **JANGAN LANGSUNG PUSH!**
+
+**Solusi:** Lanjut ke Step 5.1 (Pull Remote Changes) dulu.
+
+---
+
+**Jika output menampilkan:**
+```
+Your branch is up to date with 'origin/main'
+```
+
+**ARTINYA:** Aman untuk push. Lanjut ke Step 5.2 (Commit & Push).
+
+---
+
+### 5.1 Pull Remote Changes (Jika Branch Behind)
+
+**⚠️ HANYA JIKA** ada perubahan di remote yang belum Anda tarik:
+
+```powershell
+# Tarik perubahan dari remote
+git pull origin main
+
+# Jika muncul editor untuk merge message:
+# - Di Vim: ketik :wq lalu Enter
+# - Di Nano: Ctrl+X, Y, Enter
+# - Atau gunakan: git pull origin main --no-edit (otomatis)
+
+# Setelah pull selesai, cek status lagi
+git status
+```
+
+**Jika terjadi konflik saat pull:**
+
+1. Git akan menandai file yang konflik
+2. Buka file tersebut dan cari tanda `<<<<<<<`, `=======`, `>>>>>>>`
+3. Perbaiki konflik (pilih salah satu versi atau gabungkan)
+4. Setelah selesai:
+
+```powershell
+git add .
+git commit -m "merge: resolve conflicts after pull"
+```
+
+**Setelah konflik resolved**, lanjut ke Step 5.2 untuk commit dan push.
+
+---
+
+### 5.2 Add, Commit & Push
+
+**⚠️ PASTIKAN** sudah tidak ada konflik dan branch sudah up-to-date:
 
 ```powershell
 cd D:\Project\WindowsDoctorAI
@@ -221,7 +299,7 @@ cd D:\Project\WindowsDoctorAI
 # Add semua perubahan
 git add -A
 
-# Lihat apa saja yang berubah
+# Lihat apa saja yang berubah (opsional)
 git status
 
 # Commit dengan pesan deskriptif
@@ -232,15 +310,32 @@ git commit -m "release: WindowsDoctorAI v2.0.1
 - (contoh: Fix category cards layout)
 
 Developed by: RIDOLF WIDI ALFISA LUMBA"
-```
 
-### 5.2 Push ke GitHub
-
-```powershell
+# Push ke GitHub
 git push origin main
+
+# Verify success
+if ($LASTEXITCODE -eq 0) {
+    Write-Host "PUSH SUKSES!" -ForegroundColor Green
+} else {
+    Write-Host "PUSH GAGAL! Cek error di atas." -ForegroundColor Red
+}
 ```
 
-### 5.3 Verify
+**Jika masih gagal dengan error "rejected":**
+
+Error:
+```
+! [rejected] main -> main (fetch first)
+```
+
+**Penyebab:** Ada perubahan di remote yang belum di-pull (mungkin ada commit baru setelah Step 5.0).
+
+**Solusi:** Ulangi Step 5.1 (Pull) dan Step 5.2 (Push) lagi.
+
+---
+
+### 5.3 Verify di GitHub
 
 Buka browser: https://github.com/a7x-rudolf/WindowsDoctorAI
 
@@ -274,26 +369,26 @@ Windows Doctor AI v2.0.1 — (judul singkat perubahan)
 **Description:** Tulis release notes. Contoh template:
 
 ```markdown
-# Windows Doctor AI v2.0.1
+# 🩺 Windows Doctor AI v2.0.1 — Premium Edition
 
-## What's Changed
+## 🎯 What's New in v2.0.1
+
 - (tulis perubahan utama)
 - (tulis perubahan utama)
 
-## Bug Fixes
-- (tulis fix kalau ada)
+## 📥 Download
 
-## Download
-| File | Description |
-|------|-------------|
-| **WindowsDoctorAI-v2.0.1-Setup-x64.exe** | Installer (Recommended) |
+| File | Description | Size |
+|------|-------------|------|
+| **WindowsDoctorAI-v2.0.1-Setup-x64.exe** | 🎯 Installer (Recommended) | ~120 MB |
 
-## System Requirements
+## 💻 System Requirements
 - Windows 10 (Build 17763+) or Windows 11
 - x64 architecture
 - Administrator privileges
 
 ---
+
 **Developed by RIDOLF WIDI ALFISA LUMBA**
 **Copyright © 2025 RIDOLF WIDI ALFISA LUMBA. All Rights Reserved.**
 ```
@@ -324,6 +419,21 @@ Pastikan:
 
 ---
 
+## ✅ Post-Release Checklist
+
+Setelah publish release, verify:
+
+- [ ] Release page di GitHub menampilkan versi terbaru
+- [ ] Installer file ter-attach dengan benar di Assets
+- [ ] Download installer berhasil dan bisa di-install
+- [ ] Aplikasi hasil install berjalan normal
+- [ ] CHANGELOG.md sudah ter-update di repository
+- [ ] README.md badge versi sudah ter-update (jika ada)
+- [ ] Tidak ada issue baru yang muncul terkait release ini
+- [ ] (Opsional) Update di website atau media sosial jika ada
+
+---
+
 ## 📊 Quick Reference: Semua Command dalam 1 Block
 
 Untuk yang sudah hafal prosedur, ini **semua command** dalam 1 block:
@@ -346,8 +456,17 @@ dotnet publish -c Release -r win-x64 -p:Platform=x64 --self-contained true `
 & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" `
     "D:\Project\WindowsDoctorAI\Installer\WindowsDoctorAI-Setup.iss"
 
-# STEP 5: Push to GitHub
+# STEP 5: Push ke GitHub (DENGAN SAFETY CHECK)
 cd D:\Project\WindowsDoctorAI
+
+# ⚠️ CEK REMOTE DULU!
+git fetch origin
+git status
+
+# JIKA "behind" → Pull dulu
+# git pull origin main
+
+# JIKA "up to date" → Commit & Push
 git add -A
 git commit -m "release: WindowsDoctorAI vX.Y.Z"
 git push origin main
@@ -394,6 +513,31 @@ Remove-Item "D:\Project\WindowsDoctorAI\WindowsDoctorAI\global.json" -Force -Err
 2. Verify file ada di `D:\Project\WindowsDoctorAI\Publish\`
 3. Verify path di `.iss` file benar
 
+### Git Push Rejected: "fetch first" ⚠️ PALING SERING TERJADI
+
+**Error:**
+```
+! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/...'
+```
+
+**Penyebab:** Remote repository memiliki commit baru yang tidak ada di lokal Anda.
+
+**Solusi:**
+
+1. **JANGAN** gunakan `git push --force` (bisa menghapus perubahan orang lain!)
+2. Tarik perubahan terlebih dahulu:
+   ```powershell
+   git pull origin main
+   ```
+3. Jika ada konflik, selesaikan (lihat cara di Step 5.1)
+4. Setelah pull sukses, push lagi:
+   ```powershell
+   git push origin main
+   ```
+
+**Pencegahan:** Selalu jalankan `git fetch origin` dan `git status` sebelum push untuk cek apakah branch sudah up-to-date (lihat Step 5.0).
+
 ### Git Push Gagal: "Authentication failed"
 
 **Cause:** Token expired atau credential issue
@@ -439,7 +583,7 @@ Remove-Item "D:\Project\WindowsDoctorAI\WindowsDoctorAI\global.json" -Force -Err
 | Version | Release Date | Notes |
 |---------|-------------|-------|
 | v2.0.0 | 15 Juli 2025 | Initial release - Complete rewrite to WinUI 3 |
-| v2.0.1 | (TBD) | UI Redesign - Dark mode default, blue accent |
+| v2.0.1 | 16 Juli 2025 | UI Redesign - Dark mode default, blue accent, localization foundation |
 | v2.1.0 | (Planned) | Scan History, Settings persistence |
 
 ---
@@ -449,6 +593,7 @@ Remove-Item "D:\Project\WindowsDoctorAI\WindowsDoctorAI\global.json" -Force -Err
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
 | 1.0 | 15 Juli 2025 | Initial release procedure document | RIDOLF WIDI ALFISA LUMBA |
+| 1.1 | 16 Juli 2025 | Added git safety checks & troubleshooting for push rejected | RIDOLF WIDI ALFISA LUMBA |
 
 ---
 

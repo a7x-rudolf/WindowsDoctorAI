@@ -20,8 +20,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Scan history persistence (SQLite)** — every completed scan is now saved to a local
+  `history.db` under `%LocalAppData%\WindowsDoctorAI\`. New `ScanHistoryService`
+  (`Services/ScanHistoryService.cs`) handles schema creation, saving, listing, per-session
+  detail lookup, deleting, and auto-trimming history beyond 200 sessions.
+- `Models/ScanHistoryEntry.cs` — `ScanHistoryEntry`, `ScanHistoryResult`, `ScanHistoryDetail`
+  models for persisted scan summaries and their per-item results.
+- `Dialogs/HistoryDetailDialog.xaml(.cs)` — dialog showing full diagnostic results for a
+  past scan session.
+- `Views/HistoryPage.xaml(.cs)` rewritten from the "Coming Soon" placeholder to a real list:
+  score badge, date, issue summary per session, View / Delete per entry, and Clear All.
+- `MainViewModel`: `ScanHistory` collection plus `LoadHistoryCommand`,
+  `ViewHistoryDetailCommand`, `DeleteHistoryEntryCommand`, `ClearHistoryCommand`. Every
+  `RunScanCommand` completion now saves the result to history automatically (best-effort —
+  a persistence failure never blocks or fails the scan itself).
+- NuGet dependency: `Microsoft.Data.Sqlite` 8.0.8.
+
 ### Planned
-- Scan history persistence (SQLite)
 - Parallel scan execution
 - Unit test coverage
 - MSIX packaging for Microsoft Store
